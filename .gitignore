@@ -1,0 +1,27 @@
+# Datasets (large, not meant for git)
+/mendeley_flowers/
+/plantvillage/
+/plantvillage_new/
+/rose_warcoder/
+/flower_leaf/
+/rose_leaf/
+
+# Model artifacts / checkpoints / caches (large, generated)
+/artifacts/checkpoints/
+/artifacts/cache/
+/artifacts/results/
+/artifacts/manifests/
+
+# Secrets
+artifacts/kaggle.json
+**/kaggle.json
+*.env
+.env
+
+# Python
+__pycache__/
+*.pyc
+
+# Web app runtime data
+module 3/webapp/uploads/*
+!module 3/webapp/uploads/.gitkeep

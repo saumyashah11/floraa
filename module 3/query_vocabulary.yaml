@@ -1,0 +1,285 @@
+# FLORA :: Module 3 farmer-speech vocabulary.
+#
+# The mirror image of attribute_schema.yaml. Where that file lists the
+# pathologist vocabulary Module 1 predicts, this file lists the words real
+# farmers use for the same underlying concept in Hindi, Marathi and the
+# Hinglish/Devanagari code-mixing that actually shows up in a chat box.
+# 09_build_query_corpus.py samples from here to build labelled sentences;
+# flora_text.py's tokenizer never sees this file directly -- MuRIL reads raw
+# text -- but the demo UI's client-side preview uses a JSON export of it, so
+# keep phrases realistic rather than exhaustive.
+#
+# Coverage is deliberately uneven: a farmer says "peela" (yellow) far more
+# often than "chlorotic", so common colours/textures get more phrasings than
+# rare ones. That imbalance is itself realistic and is kept, not corrected.
+
+colour:
+  chlorotic_yellow:
+    - "patti peeli pad gayi"
+    - "peela peela ho gaya"
+    - "patta pila padla"          # Marathi
+    - "piwla dista aahe"          # Marathi: looks yellow
+    - "haldi jaisa rang aa gaya"
+    - "patti yellow ho rahi hai"
+    - "पत्ती पिवळी पडली"
+    - "पत्ते पीले हो गए हैं"
+    - "leaf peela"
+  necrotic_brown:
+    - "bhura daag aa gaya"
+    - "kadak bhura ho gaya patta"
+    - "tapkiri dag padle"        # Marathi: brown spots came
+    - "sookh ke bhura ho gaya"
+    - "jala hua jaisa dikh raha"
+    - "patta jal gaya jaisa bhura"
+    - "पत्ती भूरी हो गई"
+    - "तपकिरी डाग"
+  black:
+    - "kala kala daag aa raha hai"
+    - "patti pe kaale kaale dhabbe"
+    - "kali patti ho gayi"
+    - "kala dagach padla"        # Marathi
+    - "काळे डाग पडले"
+    - "पत्ती पर काले धब्बे"
+    - "black spot jaisa kuch"
+  rust_orange:
+    - "jung jaisa rang"
+    - "narangi rang ke dhabbe"
+    - "tambus rang ale patyavar"  # Marathi: rust colour came on leaf
+    - "rust lagi hai patti ko"
+    - "lal narangi powder jaisa"
+    - "गंज सारखा रंग"
+  white_powdery:
+    - "safed powder jaisa jam gaya"
+    - "safed safed dikh raha upar"
+    - "pandhra bharkat aahe"      # Marathi: white dust is there
+    - "jaise chuna chidak diya ho"
+    - "safed fungus lagा hai"
+    - "पांढरी पावडर सारखं"
+    - "सफेद परत जम गई"
+  water_soaked:
+    - "geela geela daag hai"
+    - "paani jaisa dhabba"
+    - "bheega hua sa lag raha"
+    - "पाणी लागल्यासारखा डाग"
+    - "जलभरा दाग"
+  purple_red:
+    - "jamuni rang aa gaya"
+    - "lal jamuni chhaya"
+    - "jaambhla rang" # Marathi purple
+    - "गुलाबी जांभळा रंग"
+
+margin:
+  sharply_defined:
+    - "border bilkul saaf hai"
+    - "kinara spasht dikh raha"   # Marathi-inflected: clear border
+    - "daag ka kinara clear cut hai"
+    - "स्पष्ट सीमा असलेला डाग"
+  diffuse_feathered:
+    - "kinara phaila hua hai, saaf nahi"
+    - "dhundhla sa border hai"
+    - "kडा nizat nahi, pasarलेला aahe" # Marathi: spread out, not fixed
+    - "edge blur hai daag ka"
+    - "अस्पष्ट सीमा"
+  halo_bearing:
+    - "daag ke chaaro taraf peela ghera hai"
+    - "spot ke around yellow ring"
+    - "bhowti peela chakra aahe"  # Marathi: yellow ring around
+    - "पिवळ्या वलयासह डाग"
+    - "halo jaisa dikh raha daag ke around"
+    - "daag ke bahar peela circle bhi bana hai"
+    - "ghera sa dikhta hai daag ke bahar, peela peela"
+  angular_vein_limited:
+    - "sirf naso ke beech mein daag hai"
+    - "shiron chya madhe daag aahet" # Marathi: spots between veins
+    - "vein ke paas seedha seedha shape ka daag"
+    - "नसांच्या मध्ये कोनदार डाग"
+    - "sirf naso ke line ke saath saath daag hai"
+    - "shira chya rangetच सरळ रेषेत डाग"
+
+distribution:
+  marginal:
+    - "sirf kinaro par daag hai"
+    - "pattyachya kडेला daag"     # Marathi: at leaf's edge
+    - "edge ki taraf zyada hai"
+    - "पानाच्या कडेला डाग"
+    - "patti ke bahar wale hisse par hi hai zyada"
+    - "kडेच्या भागातच जास्त आहे"
+  interveinal:
+    - "naso ke beech beech mein daag"
+    - "shira shira chya madhe daag" # Marathi
+    - "veins ke gaps mein spots"
+    - "शिरांमधील भागात डाग"
+    - "naso ke bilkul beech wali jagah par hi daag hai"
+    - "शिरांच्या फटीत डाग दिसतो"
+  random_scattered:
+    - "idhar udhar bikhre hue daag"
+    - "kahin kahin chhitke hue spots"
+    - "randomly पसरलेले डाग"      # Marathi-Hinglish mix
+    - "पत्तीभर विखुरलेले डाग"
+    - "koi fix jagah nahi hai, jahan tahan daag hai"
+    - "इकडे तिकडे विखुरलेले ठिपके"
+  concentric_ringed:
+    - "gol gol ring jaisa daag, ek ke andar ek"
+    - "chakri jaisa design bana hai daag mein"
+    - "वर्तुळाकार कड्यांसारखा डाग"
+    - "target jaisa circle ban gaya hai"
+    - "ek ke andar ek gol layer bani hai daag mein"
+    - "बुद्धिबळाच्या पटासारखी वर्तुळे"
+  uniform_general:
+    - "puri patti par ek jaisa fail gaya hai"
+    - "sab jagah barabar dikh raha"
+    - "pooर्ण pan sagळीkade sarkha aahe" # Marathi: whole leaf uniformly
+    - "संपूर्ण पानभर पसरलेले"
+    - "poori patti par barabar matra mein fail gaya hai"
+    - "सगळीकडे सारखंच पसरलं आहे"
+
+texture:
+  powdery:
+    - "upar powder jama hai jaise aata chidka ho"
+    - "haath lagane par safed powder lagta hai"
+    - "पावडरी थर आहे"
+    - "chuna sa lagta hai chhune par"
+  downy_fuzzy:
+    - "niche ki taraf ruye jaisa lagta hai"
+    - "फुगीर, लोकरीसारखा थर"       # Marathi: fluffy woolly layer
+    - "soft baal jaise ug aaye hain"
+    - "रुईसारखा मऊ थर"
+  velvety_sporulating:
+    - "makhmali sa lagta hai chhune par"
+    - "fluffy fungus jaisa ug raha hai"
+    - "मखमली बुरशीसारखं"
+    - "kaali powder si udती hai chhedne par"
+  sunken_cankerous:
+    - "daag jagah se dhasa hua hai"
+    - "गड्ढा पडल्यासारखा भाग"      # Marathi: like a pit formed
+    - "andar ki taraf dab gaya hai wo jagah"
+    - "khadda sa ban gaya tissue mein"
+  raised_pustular:
+    - "ubhre hue daane jaise ban gaye hain"
+    - "फोडासारखे फुगवटे"          # Marathi: pustule-like bumps
+    - "chhote chhote pimple jaise"
+    - "उभार आलेले ठिपके"
+  smooth_flat:
+    - "sapaट hai, koi ubhaar nahi"
+    - "बुडलेला किंवा उंचावलेला भाग नाही, सपाट आहे"
+    - "chikna hi hai bas rang badla hai"
+    - "flat hi hai bस colour alag hai"
+
+organ:
+  leaf:
+    - "patti par"
+    - "पानावर"
+    - "पत्ते पर"
+    - "leaf pe"
+  petal:
+    - "phool ki pankhudi par"
+    - "फुलाच्या पाकळ्यांवर"
+    - "petal par"
+    - "gulaab ke phool par"
+  bud:
+    - "kali par"
+    - "कळीवर"
+    - "bud pe"
+    - "phool khilne se pehle wali kali mein"
+  sepal:
+    - "phool ke neeche wale hisse par"
+    - "sepal jaisi hari patti phool ke neeche"
+    - "फुलाखालच्या हिरव्या भागावर"
+  stem:
+    - "dandi par"
+    - "तणावर"
+    - "stem pe"
+    - "daant ya tana par"
+
+severity:
+  0:
+    - "koi bimari nahi dikh rahi"
+    - "sab kuch normal hai"
+    - "काहीच लक्षण नाही"
+    - "kuch bhi kharab nahi lag raha"
+  1:
+    - "bas ek do jagah thoda sa shuru hua hai"
+    - "abhi abhi dikhna shuru hua, bahut halka hai"
+    - "अगदी सुरुवात आहे, फार कमी"
+    - "naye naye shuru hua hai, bahut kam hai abhi"
+  2:
+    - "thoda thoda dikh raha hai kuch pattiyon par"
+    - "halka sa phail raha hai"
+    - "थोडं पसरलं आहे"
+    - "kuch patto par halka sa asar hai"
+  3:
+    - "kaafi patti par phail gaya hai"
+    - "zyada dikh raha hai ab"
+    - "बरंच पसरलं आहे आता"
+    - "kaafi zyada badh gaya hai pichhle hafte se"
+  4:
+    - "poori jhaadi hi kharab ho gayi hai"
+    - "bahut zyada, saari patti kharab"
+    - "अख्खं झाड खराब झालं आहे"
+    - "control se bahar ho gaya hai bimari"
+    - "poore paudhe mein fail chuka hai ab"
+
+coverage_phrases:            # phrase -> approximate fraction of organ affected
+  - phrase: "bas ek chhota sa daag"
+    value: 0.05
+  - phrase: "थोडासा भाग"
+    value: 0.08
+  - phrase: "chand hi jagah par"
+    value: 0.12
+  - phrase: "kuch hisse mein"
+    value: 0.25
+  - phrase: "aadhi patti tak fail gaya"
+    value: 0.5
+  - phrase: "अर्ध्याहून अधिक भाग"
+    value: 0.6
+  - phrase: "zyada tar hissa kharab"
+    value: 0.75
+  - phrase: "poori patti hi dhak gayi hai"
+    value: 0.9
+  - phrase: "puर्ण झाड खराब"
+    value: 0.95
+
+is_healthy_phrases:
+  - "paudha bilkul theek lag raha hai"
+  - "koi dikkat nahi hai abhi"
+  - "झाड निरोगी दिसतंय"
+  - "sab healthy hai, bas photo check karwani thi"
+  - "kuch bhi ajeeb nahi laga"
+  - "रोपटं व्यवस्थित आहे"
+
+# Sentence-frame templates. {opener} {organ} {colour} {texture} {margin}
+# {distribution} {severity} {closer} are filled from the lists above;
+# not every template uses every slot, matching how farmers actually talk --
+# nobody reports margin shape and distribution in the same breath.
+openers:
+  - "Sir mera paudha kharab ho raha hai,"
+  - "namaskar, ek problem hai -"
+  - "bhaiya dekhiye"
+  - "sir ji"
+  - "मला एक अडचण आहे,"
+  - "photo bhej raha hoon, dekhiye"
+  - "" # many real queries have no opener at all
+  - ""
+
+closers:
+  - "kya karu bataiye"
+  - "spray kya daalu"
+  - "yeh kya bimari hai"
+  - "काय करावं सांगा"
+  - "ilaj bataiye please"
+  - ""
+  - ""
+
+# typo / phonetic-variation pool applied at corpus-build time so the corpus
+# is not just clean copy-paste of the phrases above -- MuRIL has to learn
+# past spelling noise the way it would from real chat input.
+typo_swaps:
+  - ["patti", "patii"]
+  - ["patti", "patta"]
+  - ["daag", "dag"]
+  - ["daag", "dhabba"]
+  - ["hai", "h"]
+  - ["nahi", "nhi"]
+  - ["kya", "kia"]
+  - ["bahut", "bhut"]
+  - ["zyada", "jyada"]
