@@ -1,0 +1,1052 @@
+# FLORA :: disease monograph corpus.
+#
+# This file IS the knowledge base for zero-shot recognition. The three classes
+# listed in config.ZSL_UNSEEN are never seen as images during training, so the
+# text below is the model's entire evidence for them. Write them as carefully
+# as the seen classes, in the same register, or the comparison is unfair and
+# the result is meaningless.
+#
+# Each class carries several 'variants'. One is sampled per training step so the
+# text tower does not memorise a single string. A fourth variant is generated
+# automatically from class_priors.csv at load time.
+
+rose_black_spot:
+  common_name: Rose black spot
+  pathogen: Diplocarpon rosae
+  species: rose
+  look_alikes: [rose_anthracnose, generic_leaf_spot]
+  variants:
+    - >
+      Rounded black lesions appear on the upper leaf surface, reaching one
+      centimetre or more across. The defining feature is the boundary: margins
+      are irregular and feathered rather than clean, radiating outward into the
+      surrounding tissue. A broad yellow halo spreads from each lesion and the
+      leaf usually drops early. Lesions are flat and not sunken. Distribution
+      is scattered and irregular across the blade, worst on lower foliage.
+    - >
+      Dark blotches with fringed edges on rose foliage, surrounded by yellowing
+      that eventually consumes the whole leaf. The affected tissue stays level
+      with the leaf surface and shows no powder, fuzz or raised pustules.
+      Severe infection strips the lower canes bare while the upper growth still
+      looks healthy. Spread follows prolonged leaf wetness.
+
+rose_powdery_mildew:
+  common_name: Rose powdery mildew
+  pathogen: Podosphaera pannosa
+  species: rose
+  look_alikes: [marigold_powdery_mildew, generic_powdery_mildew]
+  variants:
+    - >
+      A white to greyish powdery coating develops on the upper leaf surface,
+      young shoots and flower buds. The growth sits on top of the tissue and can
+      be rubbed away with a finger, which distinguishes it from staining or
+      necrosis. Coverage is general and diffuse rather than confined to discrete
+      spots, and infected young leaves curl, twist and turn purplish at the edge.
+    - >
+      Superficial white dust across new rose growth, giving foliage a floury
+      appearance. There is no defined lesion boundary and no orange or black
+      colouration. Buds may fail to open. Unlike most foliar diseases this one
+      worsens in dry warm conditions with high humidity but without free water
+      on the leaf.
+
+rose_downy_mildew:
+  common_name: Rose downy mildew
+  pathogen: Peronospora sparsa
+  species: rose
+  look_alikes: [rose_black_spot, rose_anthracnose]
+  variants:
+    - >
+      Angular purple to reddish brown blotches form on the upper leaf surface,
+      sharply bounded by the leaf veins so that lesions appear geometric rather
+      than rounded. In humid conditions a sparse greyish downy growth develops
+      on the underside directly beneath the discoloured patches. Defoliation is
+      rapid and severe, often within days, and stems may also be marked.
+    - >
+      Vein-limited angular patches, purplish rather than black, with fine fuzzy
+      sporulation confined to the lower leaf surface. The vein boundaries give
+      the lesions straight edges, unlike the rounded feathered spots of black
+      spot. Cool damp weather drives outbreaks and leaf fall is abrupt.
+
+rose_rust:
+  common_name: Rose rust
+  pathogen: Phragmidium species
+  species: rose
+  look_alikes: [hibiscus_rust, generic_rust]
+  variants:
+    - >
+      Bright orange powdery pustules erupt through the lower leaf surface,
+      raised above the plane of the leaf and clearly bounded. Corresponding
+      pale yellow flecks appear directly above on the upper surface. Pustules
+      are small, discrete and scattered. Late in the season the orange masses
+      darken to brown or black as overwintering spores form.
+    - >
+      Raised rust-orange spore masses dotted across the underside of rose
+      leaves, easily smudged onto a fingertip. The upper surface shows only
+      faint yellow speckling. The pustular relief and the orange colour together
+      separate this from any spot or mildew disease.
+
+rose_anthracnose:
+  common_name: Rose anthracnose
+  pathogen: Sphaceloma rosarum
+  species: rose
+  look_alikes: [rose_black_spot, generic_leaf_spot]
+  variants:
+    - >
+      Small dark red to black spots with sharply defined margins and a distinct
+      ring of contrasting tissue around each. The lesion centre dries, turns
+      grey or white and frequently drops out, leaving a shot-hole. Affected
+      areas are slightly sunken relative to the leaf surface. Spots stay small
+      and numerous rather than expanding into blotches.
+    - >
+      Numerous tiny sunken lesions on rose foliage with pale centres and dark
+      well-defined borders, often perforating to leave holes. The regular
+      circular outline and the halo distinguish this from the larger, ragged,
+      feather-edged lesions of black spot.
+
+rose_botrytis_flower_blight:
+  common_name: Rose grey mould or blossom blight
+  pathogen: Botrytis cinerea
+  species: rose
+  look_alikes: [marigold_botrytis_flower_blight, generic_blight]
+  variants:
+    - >
+      Petals develop small water-soaked flecks that enlarge into soft brown
+      rotting areas, beginning at the outer petal margins and spreading inward.
+      Under humidity a dense grey-brown velvety mould coats the decayed tissue.
+      Buds may rot before opening and hang over on collapsed stalks. The
+      substrate is floral rather than foliar.
+    - >
+      Browning and soft collapse of rose blooms starting at the petal edges,
+      with fuzzy grey sporulation across the rotted surface. The flower rather
+      than the leaf is affected, the boundary between healthy and rotted tissue
+      is diffuse, and infected buds fail to open at all.
+
+marigold_leaf_spot:
+  common_name: Marigold leaf spot
+  pathogen: Alternaria and Septoria species
+  species: marigold
+  look_alikes: [hibiscus_leaf_spot, generic_leaf_spot]
+  variants:
+    - >
+      Brown to dark brown circular lesions on marigold foliage showing
+      concentric rings within the spot, giving a target-like appearance. A
+      yellow halo surrounds each lesion. Spots coalesce as they enlarge and the
+      leaf yellows and dies from the base of the plant upward. Lesion surfaces
+      remain flat and dry.
+    - >
+      Target-patterned brown spots with ringed interiors and yellow borders on
+      marigold leaves. The concentric banding is the diagnostic feature. Lower
+      leaves are affected first and progressively defoliate while the plant
+      continues flowering.
+
+marigold_powdery_mildew:
+  common_name: Marigold powdery mildew
+  pathogen: Golovinomyces cichoracearum
+  species: marigold
+  look_alikes: [rose_powdery_mildew, generic_powdery_mildew]
+  variants:
+    - >
+      White floury patches spread across marigold leaf surfaces and stems,
+      superficial and removable by rubbing. Coverage becomes general rather than
+      spotted. Underlying tissue yellows and the leaf eventually dries, but the
+      white surface growth remains the dominant visual sign throughout.
+    - >
+      Dusty white overgrowth on marigold foliage with no discrete lesion
+      boundary, no orange pustule and no sunken tissue. Growth is confined to
+      the tissue surface and the leaf beneath it slowly loses colour.
+
+marigold_botrytis_flower_blight:
+  common_name: Marigold blossom blight
+  pathogen: Botrytis cinerea and Alternaria species
+  species: marigold
+  look_alikes: [rose_botrytis_flower_blight, generic_blight]
+  variants:
+    - >
+      The flower head browns and rots, beginning within the densely packed ray
+      florets where moisture is retained. Discolouration spreads generally
+      across the bloom without a defined edge, and a velvety grey to brown
+      sporulating layer forms over the decayed surface. Whole heads collapse and
+      remain attached to the stem as dry rotted masses.
+    - >
+      Marigold blooms turning brown and soft from the inside outward, with fuzzy
+      sporulation across the rotted petals and no clear boundary against healthy
+      tissue. Foliage may remain unaffected while the flower heads are destroyed.
+      Damage is concentrated on the floral organ.
+
+hibiscus_leaf_spot:
+  common_name: Hibiscus leaf spot
+  pathogen: Cercospora and Pseudocercospora species
+  species: hibiscus
+  look_alikes: [marigold_leaf_spot, generic_leaf_spot]
+  variants:
+    - >
+      Discrete brown necrotic spots scattered irregularly across hibiscus
+      leaves, each ringed by a yellow halo. Spots remain small, flat and
+      separate rather than merging into large blotches. Heavily marked leaves
+      yellow overall and abscise. There is no surface powder, fuzz or pustule.
+    - >
+      Small round brown lesions with yellow borders dotted at random over
+      hibiscus foliage. The lesion surface stays level with the leaf and dries
+      out. Older leaves carry the heaviest marking.
+
+hibiscus_rust:
+  common_name: Hibiscus rust
+  pathogen: Kuehneola malvicola
+  species: hibiscus
+  look_alikes: [rose_rust, generic_rust]
+  variants:
+    - >
+      Raised orange to yellow-orange pustules break through the lower leaf
+      surface and along young stems of hibiscus, distinctly elevated above the
+      surrounding tissue and sharply bounded. The powder rubs off readily. Above
+      each pustule cluster the upper surface shows a corresponding chlorotic
+      fleck. Pustules are scattered rather than uniformly spread.
+    - >
+      Erupting rust-coloured spore masses on hibiscus leaf undersides and stems,
+      raised and gritty to the touch, with pale yellow spotting visible from
+      above. The elevated pustular texture and orange colour together are
+      definitive and rule out any flat necrotic spot disease.
+
+generic_leaf_spot:
+  common_name: Fungal leaf spot
+  pathogen: various
+  species: mixed
+  look_alikes: [marigold_leaf_spot, hibiscus_leaf_spot]
+  variants:
+    - >
+      Discrete brown necrotic lesions with defined margins and frequent yellow
+      haloes, scattered across the leaf blade. Lesion surfaces are flat and dry
+      with no superficial growth. Severity increases on older lower foliage.
+    - >
+      Separate round to irregular brown spots, each bordered by a paler or
+      yellow ring, dotted across the foliage without merging into a single
+      large blighted patch. The lesion surface stays dry and level with the
+      leaf, distinguishing it from any pustular, powdery or velvety disease.
+
+generic_powdery_mildew:
+  common_name: Powdery mildew
+  pathogen: various Erysiphaceae
+  species: mixed
+  look_alikes: [rose_powdery_mildew, marigold_powdery_mildew]
+  variants:
+    - >
+      White superficial powdery growth spread generally over the leaf surface
+      without discrete lesion boundaries. The coating is removable and sits
+      above the tissue. Young growth distorts and underlying tissue yellows.
+    - >
+      A floury white coating dusts the leaf surface diffusely rather than in
+      separate spots, rubbing away easily on a fingertip and leaving no mark
+      on the tissue beneath. Warm dry days after humid nights favour the
+      fastest spread.
+
+generic_rust:
+  common_name: Rust
+  pathogen: various Pucciniales
+  species: mixed
+  look_alikes: [rose_rust, hibiscus_rust]
+  variants:
+    - >
+      Raised orange pustules erupting through the leaf surface, sharply defined
+      and scattered, with chlorotic flecking visible on the opposite surface.
+      Spore masses are powdery and detach when touched.
+    - >
+      Gritty, powdery orange-brown pustules break through the leaf epidermis
+      in scattered clusters, each raised above the surrounding flat tissue
+      and leaving a rust-coloured smear when rubbed. A faint pale fleck
+      appears on the opposite leaf face directly above each pustule.
+
+generic_blight:
+  common_name: Blight
+  pathogen: various
+  species: mixed
+  look_alikes: [rose_botrytis_flower_blight, marigold_botrytis_flower_blight]
+  variants:
+    - >
+      Rapidly spreading brown necrosis with a diffuse advancing edge, beginning
+      at tissue margins and moving inward. Under humidity a velvety sporulating
+      layer develops over the dead tissue. Collapse of the affected organ is
+      swift and extensive.
+    - >
+      Soft, water-soaked brown-black tissue expanding outward from a diffuse,
+      undefined border, overtaking healthy tissue within days under warm damp
+      conditions. A fine grey to brown sporulating fuzz often coats the dead
+      area once collapse is underway.
+
+rose_healthy:
+  common_name: Healthy rose tissue
+  pathogen: none
+  species: rose
+  look_alikes: []
+  variants:
+    - >
+      Uniform green foliage with intact margins, no discolouration, no lesions,
+      no surface growth and no distortion. Venation is regular and the surface
+      sheen is even across the blade.
+    - >
+      Rose leaves showing even colour from base to tip, entire undamaged
+      margins and no spot, powder, pustule or rot anywhere on the blade.
+      Growth is turgid and structurally normal throughout.
+
+marigold_healthy:
+  common_name: Healthy marigold tissue
+  pathogen: none
+  species: marigold
+  look_alikes: []
+  variants:
+    - >
+      Evenly coloured green marigold foliage free of spotting, powder, pustule
+      or rot. Leaf margins are entire and undamaged, with no yellowing or
+      necrotic area anywhere on the blade.
+    - >
+      Marigold leaves uniformly green with no discoloured patch, surface
+      deposit or torn margin anywhere on the plant. The foliage looks
+      structurally intact and shows no sign of pathogen or pest activity.
+
+hibiscus_healthy:
+  common_name: Healthy hibiscus tissue
+  pathogen: none
+  species: hibiscus
+  look_alikes: []
+  variants:
+    - >
+      Glossy uniform green hibiscus leaves with no lesion, halo, discolouration
+      or surface deposit. Tissue is turgid and undamaged throughout.
+    - >
+      Hibiscus foliage evenly coloured and undamaged from base to tip, no
+      spotted, powdery, pustular or rotted area anywhere on the leaf, and no
+      distortion of leaf shape or margin.
+
+rose_pest_damage:
+  common_name: Rose insect feeding damage
+  pathogen: none (arthropod feeding, e.g. leaf-cutting or sap-feeding insects)
+  species: rose
+  look_alikes: [rose_black_spot, rose_rust]
+  variants:
+    - >
+      Irregular necrotic brown patches on rose foliage with ragged, angular
+      edges that often follow the leaf veins rather than crossing them. Close
+      inspection shows scattered feeding punctures or chewed margins rather
+      than a spreading fungal lesion, sometimes with small raised specks of
+      frass. There is no powdery coating, no fuzzy sporulation and no yellow
+      halo of the kind fungal spotting produces.
+    - >
+      Random scattered damage across rose leaves: torn or perforated tissue,
+      raised gritty specks, and brown discolouration confined to where feeding
+      occurred. The margins of the damaged area are angular and vein-limited
+      rather than smoothly rounded, and the surrounding tissue stays green and
+      otherwise healthy. No pathogen growth is visible on the surface.
+
+marigold_leaf_blight:
+  common_name: Marigold Alternaria leaf blight
+  pathogen: Alternaria species
+  species: marigold
+  look_alikes: [generic_blight, marigold_leaf_spot]
+  variants:
+    - >
+      Necrotic brown blighted patches begin at the leaf margin and spread
+      inward with a diffuse, feathered advancing edge rather than staying
+      confined to discrete spots. Under humid conditions a velvety
+      sporulating layer develops over the dead tissue. Unlike marigold leaf
+      spot, the affected area is not ring-patterned and tends to merge into
+      larger dead sections of the leaf, occasionally taking the whole margin.
+    - >
+      Marigold foliage browning from the leaf edge inward, the boundary
+      against healthy tissue soft and undefined rather than sharply drawn.
+      A fuzzy, velvety grey-brown growth appears over the necrotic area in
+      wet weather. Progression is faster than the target-ringed spotting of
+      marigold leaf spot and can defoliate a plant within days.
+
+marigold_pest_damage:
+  common_name: Marigold insect feeding damage
+  pathogen: none (arthropod feeding)
+  species: marigold
+  look_alikes: [marigold_leaf_blight, generic_leaf_spot]
+  variants:
+    - >
+      Scattered necrotic brown patches on marigold leaves with angular,
+      vein-limited margins consistent with insect feeding rather than
+      fungal spread. Small raised pustular specks of frass or scarring
+      appear near the feeding sites. No powdery or downy surface growth is
+      present, and the damage does not follow a ring or halo pattern.
+    - >
+      Randomly distributed chewed or punctured areas across marigold
+      foliage, tissue around the damage browning but the wound edges
+      staying angular rather than diffuse. The rest of the leaf remains
+      normally coloured, and there is no sporulating layer anywhere on the
+      surface.
+
+generic_healthy:
+  common_name: Healthy plant tissue
+  pathogen: none
+  species: mixed
+  look_alikes: []
+  variants:
+    - >
+      Normal undamaged plant tissue showing uniform colouration, entire margins
+      and no symptom of any kind. No lesion, no surface growth, no distortion.
+    - >
+      Ordinary, unblemished foliage with even colour throughout and no trace
+      of spotting, powder, pustule, rot or pest damage on any part of the
+      visible tissue.
+
+# ---------------------------------------------------------------------------
+# Crop expansion set. Added to grow the corpus past the original 22 flower-
+# only classes to the 48 rows now in class_priors.csv (44 true disease/
+# disorder classes plus 4 healthy states), covering tomato, potato, pepper,
+# apple, cherry, peach, grape, strawberry, squash and maize. Written in the
+# same register as the flower monographs above: every variant carries
+# progression, conditions and an explicit look-alike differentiator, per the
+# module 2 README's guidance that a monograph must say something the
+# class_priors.csv row alone cannot.
+# ---------------------------------------------------------------------------
+
+tomato_early_blight:
+  common_name: Tomato early blight
+  pathogen: Alternaria solani
+  species: tomato
+  look_alikes: [tomato_target_spot, potato_early_blight, marigold_leaf_spot]
+  variants:
+    - >
+      Circular to angular dark brown lesions develop first on the oldest,
+      lowest leaves, each showing sharply concentric rings that give a
+      target-board appearance. A narrow yellow halo often rings the lesion
+      and the surrounding tissue yellows as spots enlarge and merge, so lower
+      foliage dies and drops while upper growth stays green. Lesions stay
+      flat, never raised or powdery.
+    - >
+      Target-patterned brown spots climbing a tomato plant from the base
+      upward, each ring visible under close inspection and a yellow margin
+      framing the lesion. Progression is slow relative to late blight,
+      sparing the stem and fruit until infection is advanced, and there is
+      no white or grey mould on the underside even in humid weather.
+
+tomato_late_blight:
+  common_name: Tomato late blight
+  pathogen: Phytophthora infestans
+  species: tomato
+  look_alikes: [potato_late_blight, generic_blight, tomato_target_spot]
+  variants:
+    - >
+      Large irregular water-soaked patches appear anywhere on the leaf, pale
+      green at first and rapidly turning brown to black with a diffuse,
+      feathered edge rather than a clean boundary. In humid weather a thin
+      white to grey fuzzy mould rims the underside of each lesion at the
+      border with healthy tissue. Spread is explosive, often destroying a
+      plant within days, and the same pathogen blackens stems and fruit.
+    - >
+      Blotchy dark brown to black necrosis spreading fast across tomato
+      foliage, the advancing margin soft and water-soaked rather than
+      sharply drawn. A faint white downy growth is visible along the
+      underside lesion edge in cool damp conditions, the single most
+      reliable feature separating this from the slower, ring-patterned
+      early blight.
+
+tomato_leaf_mold:
+  common_name: Tomato leaf mold
+  pathogen: Passalora fulva
+  species: tomato
+  look_alikes: [generic_leaf_spot, tomato_septoria_leaf_spot]
+  variants:
+    - >
+      Pale yellow-green patches appear on the upper leaf surface directly
+      above corresponding olive-green to greyish-purple velvety mould growth
+      on the underside, confined largely to the tissue between veins. The
+      disease favours humid, poorly ventilated conditions such as
+      greenhouses and rarely marks the leaf with a sharp lesion edge;
+      instead affected areas fade and dry gradually.
+    - >
+      Fuzzy grey-olive mould coating the underside of tomato leaflets, with
+      matching faint yellow blotching visible from above, spreading along
+      the interveinal tissue. Unlike powdery mildew the growth is not
+      chalky white but soft and velvety, and unlike late blight the lesions
+      stay confined and do not turn black or water-soaked.
+
+tomato_septoria_leaf_spot:
+  common_name: Tomato Septoria leaf spot
+  pathogen: Septoria lycopersici
+  species: tomato
+  look_alikes: [generic_leaf_spot, tomato_target_spot]
+  variants:
+    - >
+      Numerous small circular spots, each only a few millimetres across,
+      scatter over the lower leaves with tan to grey centres and narrow dark
+      brown margins. Tiny black specks, the fungal fruiting bodies, are
+      visible within each spot centre under close inspection, a detail no
+      other tomato leaf spot disease shares. Heavily spotted leaves yellow
+      and drop from the bottom of the plant up.
+    - >
+      A profusion of pinhead to pea-sized lesions with pale centres and dark
+      rims covers tomato foliage, denser than early blight and without the
+      concentric ring pattern. Black pinpoint dots studding the centre of
+      each spot are the diagnostic tell, distinguishing it from target spot
+      and early blight at a glance.
+
+tomato_target_spot:
+  common_name: Tomato target spot
+  pathogen: Corynespora cassiicola
+  species: tomato
+  look_alikes: [tomato_early_blight, tomato_septoria_leaf_spot]
+  variants:
+    - >
+      Brown necrotic lesions with faint concentric zonation form across the
+      leaf, larger and more irregular in outline than early blight's
+      tighter rings, with a pale yellow halo at the margin. Lesions readily
+      coalesce into large necrotic patches under wet conditions, and the
+      same fungus also marks the fruit with sunken ringed spots, unlike
+      early blight which stays largely foliar.
+    - >
+      Target-like brown-ringed spots on tomato leaves, more diffuse and
+      variably sized than early blight's neat rings, sometimes developing a
+      shot-hole centre. Distribution is scattered rather than strictly
+      bottom-up, and infection often extends onto stems and green fruit as
+      pitted circular lesions.
+
+tomato_spider_mite_damage:
+  common_name: Tomato spider mite damage
+  pathogen: none (arthropod feeding, Tetranychus urticae)
+  species: tomato
+  look_alikes: [tomato_mosaic_virus, rose_pest_damage]
+  variants:
+    - >
+      Fine pale yellow to white stippling speckles the upper leaf surface,
+      each tiny fleck a single feeding puncture, densest along the veins and
+      giving the whole leaflet a dusty, bronzed look from a distance. Fine
+      silk webbing is often visible on the underside and along leaf axils
+      under close inspection, and in advanced cases the leaf bronzes fully
+      and dries out. No lesion, halo or surface growth is present.
+    - >
+      A stippled, sandpapery speckling across tomato leaflets that coarsens
+      into a bronze scorched appearance as feeding continues, with fine
+      webbing threading the underside and new growth. The damage tracks
+      vein architecture loosely rather than forming discrete spots, and
+      there is never any fungal growth, powder or rot associated with it.
+
+tomato_mosaic_virus:
+  common_name: Tomato mosaic virus
+  pathogen: Tomato mosaic virus (ToMV)
+  species: tomato
+  look_alikes: [tomato_yellow_leaf_curl_virus, tomato_spider_mite_damage]
+  variants:
+    - >
+      An irregular mottled mosaic of light and dark green patches spreads
+      across the leaf blade with no defined lesion boundary anywhere, often
+      accompanied by narrowed, fern-like distortion of new leaflets and
+      overall stunting of the plant. The mottling follows no vein-bounded
+      pattern and there is no necrosis, powder or pustule of any kind, only
+      the patchy colour variation itself.
+    - >
+      Blotchy green-on-green mosaic patterning on tomato foliage, leaves
+      sometimes puckered or narrowed unevenly, growth generally stunted. The
+      complete absence of any necrotic, powdery or pustular symptom,
+      combined with the mottled rather than uniform yellowing, separates
+      this from nutrient deficiency and from the leaf-curl virus.
+
+tomato_yellow_leaf_curl_virus:
+  common_name: Tomato yellow leaf curl virus
+  pathogen: Tomato yellow leaf curl virus (TYLCV), whitefly-transmitted
+  species: tomato
+  look_alikes: [tomato_mosaic_virus, rose_nutrient_deficiency]
+  variants:
+    - >
+      Leaflets curl sharply upward and inward along their margins,
+      developing a general yellowing that starts at the leaf edge and
+      spreads across the whole blade rather than staying between veins.
+      Affected shoots are markedly stunted and bushy, with small, thickened
+      leaves and reduced flowering. The margin of the yellowed area is soft
+      and diffuse, never a crisp line.
+    - >
+      Cupped, upward-curling tomato leaflets with a diffuse yellow cast
+      covering most of the leaf surface and stunted, compact new growth.
+      Unlike mosaic virus the discolouration is a general yellow wash rather
+      than a green mottle, and unlike nutrient deficiency the leaf shape
+      itself is visibly distorted.
+
+potato_early_blight:
+  common_name: Potato early blight
+  pathogen: Alternaria solani
+  species: potato
+  look_alikes: [tomato_early_blight, potato_late_blight]
+  variants:
+    - >
+      Dark brown lesions with tight concentric rings appear first on the
+      older, lower potato leaves, each ringed by a narrow yellow halo,
+      closely mirroring the disease on tomato since the same fungus causes
+      both. Spots enlarge and merge, yellowing and killing lower foliage
+      while upper leaves remain green, and the lesion surface stays dry and
+      flat throughout.
+    - >
+      Target-ringed brown spotting climbing a potato plant from the base,
+      concentric banding visible in each lesion and a yellow fringe at the
+      margin. Progression is gradual compared with late blight, and no
+      water-soaking or downy growth accompanies the lesions even in humid
+      weather.
+
+potato_late_blight:
+  common_name: Potato late blight
+  pathogen: Phytophthora infestans
+  species: potato
+  look_alikes: [tomato_late_blight, generic_blight]
+  variants:
+    - >
+      Pale green to brown water-soaked blotches spread rapidly across potato
+      leaflets with a soft, diffuse, feathered margin, often starting at the
+      leaf tip or edge and expanding inward. A pale white downy mould rims
+      the underside of active lesions in cool humid conditions, and the same
+      infection blackens stems and rots tubers. This is the pathogen behind
+      historic potato famines and remains the most destructive foliar
+      disease of the crop.
+    - >
+      Fast-collapsing brown-black necrosis on potato foliage, beginning at
+      the margin and consuming the leaf within days under cool wet weather.
+      Fine white sporulation along the underside lesion edge and a
+      distinctive sweetish rotting smell in advanced infection distinguish
+      it from the slower, dry, ring-patterned early blight.
+
+pepper_bacterial_spot:
+  common_name: Pepper bacterial spot
+  pathogen: Xanthomonas campestris pv. vesicatoria
+  species: pepper
+  look_alikes: [tomato_septoria_leaf_spot, generic_leaf_spot]
+  variants:
+    - >
+      Small water-soaked spots appear on pepper leaves and quickly turn dark
+      brown to black, each ringed by a narrow yellow halo, sometimes with a
+      slightly raised, scabby feel at the centre. Spots are numerous and
+      scattered rather than confined to older leaves, and heavily infected
+      leaves yellow and drop; the same bacterium raises rough corky
+      scab-like lesions on the fruit.
+    - >
+      Numerous small dark angular spots with yellow haloes speckle pepper
+      foliage, the lesion surface faintly raised and rough rather than
+      perfectly flat, distinguishing it from purely fungal leaf spots. Wet,
+      warm, splashing conditions drive rapid spread and heavy defoliation.
+
+apple_scab:
+  common_name: Apple scab
+  pathogen: Venturia inaequalis
+  species: apple
+  look_alikes: [apple_black_rot, generic_leaf_spot]
+  variants:
+    - >
+      Olive-green to brown velvety lesions with a feathered, indistinct
+      margin develop on the upper leaf surface, later darkening and often
+      puckering the surrounding tissue. A yellow halo frequently surrounds
+      younger lesions. The same fungus produces corky, scabbed circular
+      lesions directly on the fruit skin, which is the symptom the disease
+      is named for.
+    - >
+      Sooty olive-brown blotches with soft, feathered edges scattered across
+      apple foliage, surface slightly velvety to the touch from fungal
+      growth rather than perfectly smooth. Heavily scabbed leaves distort
+      and drop early, and fruit forms rough dark scabs that crack the skin
+      as it grows.
+
+apple_black_rot:
+  common_name: Apple black rot (frogeye leaf spot)
+  pathogen: Botryosphaeria obtusa
+  species: apple
+  look_alikes: [apple_scab, grape_black_rot]
+  variants:
+    - >
+      Circular lesions with purple-brown margins and tan to brown centres,
+      known as frogeye leaf spot, dot apple foliage and darken to black with
+      age; the tissue develops a slightly sunken, cankerous feel rather than
+      staying flat. The same fungus rots fruit into a firm black mummified
+      mass and forms sunken bark cankers on branches, so evidence beyond the
+      leaf strongly supports this diagnosis.
+    - >
+      Dark, black-centred spots with a purplish-brown ring on apple leaves,
+      texture faintly sunken at the lesion core rather than smooth, unlike
+      the more uniformly olive, feathered lesions of scab. Fruit rot, when
+      present, turns fully black and shrivelled, and cankers may be visible
+      on nearby wood.
+
+apple_cedar_apple_rust:
+  common_name: Cedar-apple rust
+  pathogen: Gymnosporangium juniperi-virginianae
+  species: apple
+  look_alikes: [rose_rust, hibiscus_rust, maize_common_rust]
+  variants:
+    - >
+      Bright orange-yellow spots with a sharply defined edge appear on the
+      upper leaf surface, each developing tiny black dots at its centre, and
+      later raised, tube-like orange structures erupt on the corresponding
+      underside. The disease requires a nearby juniper or cedar host to
+      complete its life cycle, so incidence tracks proximity to those plants
+      rather than humidity alone.
+    - >
+      Vivid orange rust spotting on apple leaves, distinctly bounded and
+      raised where the underside pustules erupt, with a gritty texture when
+      the pustules mature. The bright orange colour and elevated pustular
+      relief place it firmly in the rust family alongside rose and hibiscus
+      rust, though its dependence on a juniper alternate host is unique to
+      this disease.
+
+cherry_powdery_mildew:
+  common_name: Cherry powdery mildew
+  pathogen: Podosphaera clandestina
+  species: cherry
+  look_alikes: [generic_powdery_mildew, squash_powdery_mildew]
+  variants:
+    - >
+      A white to greyish powdery coating spreads generally over cherry
+      leaves and new shoots, superficial and easily rubbed off, with no
+      discrete lesion boundary anywhere. Infected young leaves curl and
+      pucker, and shoot growth distorts under heavy infection while the
+      underlying tissue slowly yellows beneath the coating.
+    - >
+      Chalky white surface growth dusting cherry foliage and tender shoot
+      tips, general and diffuse rather than spotted, worsening in warm days
+      following cool humid nights. Leaf curling and shoot tip distortion
+      accompany heavier infection.
+
+peach_bacterial_spot:
+  common_name: Peach bacterial spot
+  pathogen: Xanthomonas arboricola pv. pruni
+  species: peach
+  look_alikes: [pepper_bacterial_spot, generic_leaf_spot]
+  variants:
+    - >
+      Small angular water-soaked spots appear on peach leaves, bounded by
+      the smallest veins so their outline looks straight-edged rather than
+      round, and quickly turn purple-brown to black. Lesion centres often
+      dry out and fall away, leaving a ragged shot-hole appearance. The same
+      bacterium pits and cracks the fruit skin.
+    - >
+      Angular, vein-limited dark spotting on peach foliage that frequently
+      perforates at the centre once the dead tissue drops out, giving a
+      shot-holed look. Symptoms concentrate along the midrib and major veins
+      and worsen with wind-driven rain.
+
+grape_black_rot:
+  common_name: Grape black rot
+  pathogen: Guignardia bidwellii
+  species: grape
+  look_alikes: [apple_black_rot, grape_esca]
+  variants:
+    - >
+      Reddish-brown circular lesions with a darker margin appear on grape
+      leaves, each centre stippled with tiny black fruiting dots visible on
+      close inspection, the single clearest identifying feature of this
+      disease. Untreated infection reaches the fruit, shrivelling whole
+      berries into hard black mummies that persist on the cluster into the
+      next season.
+    - >
+      Brown, dark-bordered leaf spots peppered with pinpoint black dots
+      scattered across the lesion, texture slightly sunken where tissue has
+      collapsed. Fruit infection is the most damaging phase, turning berries
+      into wrinkled black mummified shells.
+
+grape_esca:
+  common_name: Grape esca (black measles / Petri disease)
+  pathogen: Phaeomoniella chlamydospora and associated fungi
+  species: grape
+  look_alikes: [grape_leaf_blight, generic_blight]
+  variants:
+    - >
+      Interveinal tissue develops a striped "tiger stripe" pattern of dark,
+      sunken necrosis running between the veins while the veins themselves
+      stay comparatively green, giving the leaf a scorched, striped look
+      rather than a scattered spotted one. In severe cases whole shoots or
+      vines can collapse suddenly within days, and berries may show small
+      dark measle-like spots.
+    - >
+      Dark interveinal striping on grape leaves, tissue between the veins
+      collapsing and drying while vein tissue resists, unlike the
+      vein-crossing blight lesions of leaf blight. Sudden vine collapse in
+      hot weather, sometimes called apoplexy, is a hallmark of advanced
+      infection.
+
+grape_leaf_blight:
+  common_name: Grape leaf blight (Isariopsis)
+  pathogen: Pseudocercospora vitis
+  species: grape
+  look_alikes: [grape_esca, generic_blight]
+  variants:
+    - >
+      Irregular dark brown to black angular lesions, initially bounded by
+      the leaf veins, expand and merge into larger blighted patches with a
+      diffuse, feathered advancing edge that eventually crosses vein
+      boundaries. A fine velvety sporulating layer develops over the
+      necrotic tissue in humid weather, and heavily blighted vines defoliate
+      rapidly from the base upward.
+    - >
+      Angular brown-black blotches on grape foliage coalescing into broad
+      necrotic blight with a soft advancing margin, distinguishing it from
+      the vein-respecting striped necrosis of esca. Rapid defoliation
+      follows in warm humid conditions.
+
+strawberry_leaf_scorch:
+  common_name: Strawberry leaf scorch
+  pathogen: Diplocarpon earlianum
+  species: strawberry
+  look_alikes: [generic_leaf_spot, rose_black_spot]
+  variants:
+    - >
+      Small irregular purplish blotches, without a distinct yellow halo,
+      scatter across strawberry leaflets and merge as they enlarge, giving
+      the whole leaf a scorched, purple-brown, burnt appearance rather than
+      showing discrete separate spots. Leaf margins curl and crisp as if
+      heat damaged, and severely affected leaves die back from the edges
+      inward.
+    - >
+      Diffuse purple-brown blotching on strawberry foliage that spreads and
+      coalesces without a clean lesion edge or surrounding halo, the leaf
+      surface eventually looking uniformly scorched. Edges dry and curl
+      upward under heavy infection.
+
+squash_powdery_mildew:
+  common_name: Squash powdery mildew
+  pathogen: Podosphaera xanthii
+  species: squash
+  look_alikes: [cherry_powdery_mildew, generic_powdery_mildew]
+  variants:
+    - >
+      White powdery blotches spread across both surfaces of squash leaves
+      and along the stems, starting as small circular patches that expand
+      and merge into a general floury coating. The growth sits on the
+      tissue surface and rubs away easily, and heavily coated leaves
+      yellow, crisp and die back while the fruit itself is rarely marked
+      directly.
+    - >
+      A dusty white overgrowth blankets squash foliage on both sides of the
+      leaf, beginning in scattered patches before covering the whole
+      surface. Warm dry days following humid nights favour rapid spread,
+      and vines can defoliate substantially while fruiting continues.
+
+maize_gray_leaf_spot:
+  common_name: Maize gray leaf spot
+  pathogen: Cercospora zeae-maydis
+  species: maize
+  look_alikes: [maize_northern_leaf_blight, generic_leaf_spot]
+  variants:
+    - >
+      Narrow, rectangular tan to grey lesions run parallel to the leaf
+      veins, sharply bounded on their long edges by the vein structure and
+      giving a matchstick-like appearance quite unlike a rounded spot. A
+      faint yellow halo can ring young lesions, and heavy infection causes
+      lesions to merge into long streaks that blight large sections of the
+      leaf.
+    - >
+      Thin rectangular grey-brown streaks confined between adjacent veins on
+      maize leaves, their straight parallel-sided outline the clearest
+      identifying feature against the broader, more elliptical lesions of
+      northern leaf blight. Lower and older leaves are affected first.
+
+maize_common_rust:
+  common_name: Maize common rust
+  pathogen: Puccinia sorghi
+  species: maize
+  look_alikes: [apple_cedar_apple_rust, generic_rust]
+  variants:
+    - >
+      Small, round to elongated cinnamon-brown pustules erupt through both
+      leaf surfaces of maize, raised and powdery, rupturing the epidermis as
+      they mature and releasing rust-coloured spores that smear easily onto
+      a finger. Pustules are scattered rather than clustered and
+      late-season pustules darken toward black as the fungus overwinters.
+    - >
+      Reddish-brown raised pustules dotting maize foliage on both sides of
+      the blade, gritty and powdery to the touch, easily distinguished from
+      the flat rectangular lesions of the other major maize leaf diseases by
+      their raised pustular relief alone.
+
+maize_northern_leaf_blight:
+  common_name: Maize northern leaf blight
+  pathogen: Exserohilum turcicum
+  species: maize
+  look_alikes: [maize_gray_leaf_spot, generic_blight]
+  variants:
+    - >
+      Long, cigar-shaped elliptical lesions, tan to grey-green and several
+      centimetres in length, run roughly parallel to the leaf veins with a
+      diffuse, feathered margin rather than a sharp edge. Lesions begin on
+      lower leaves and expand and merge under humid conditions, and a
+      sparse velvety sporulation can appear over older lesions, eventually
+      blighting large sections of the canopy.
+    - >
+      Large elongated grey-tan streaks on maize leaves, distinctly bigger
+      and more diffusely bordered than the narrow rectangular lesions of
+      gray leaf spot, tapering to points at each end like a cigar. Rapid
+      canopy blighting follows in warm wet weather.
+
+rose_nutrient_deficiency:
+  common_name: Rose nutrient deficiency
+  pathogen: none (mineral deficiency, commonly iron, magnesium or nitrogen)
+  species: rose
+  look_alikes: [hibiscus_nutrient_deficiency, tomato_yellow_leaf_curl_virus]
+  variants:
+    - >
+      Interveinal yellowing spreads across rose leaves while the veins
+      themselves stay noticeably green, producing a netted pattern of
+      colour rather than a uniform wash or a discrete lesion. There is no
+      spot, halo, powder, pustule or rot of any kind, and the leaf remains
+      flat, intact and undistorted; only the colour is affected, most
+      visible on the newer growth for iron deficiency or the older growth
+      for magnesium or nitrogen shortage.
+    - >
+      A green-veined, yellow-between-the-veins pattern develops on rose
+      foliage with no accompanying lesion, growth or texture change
+      anywhere on the leaf. The complete absence of any pathogen sign,
+      combined with the vein-sparing pattern, separates this cleanly from
+      every fungal or viral cause of yellowing.
+
+tomato_bacterial_spot:
+  common_name: Tomato bacterial spot
+  pathogen: Xanthomonas species
+  species: tomato
+  look_alikes: [pepper_bacterial_spot, tomato_septoria_leaf_spot]
+  variants:
+    - >
+      Small, greasy-looking water-soaked spots appear on tomato leaves and
+      quickly darken to brown-black, each edged by a narrow yellow halo. Spot
+      centres sometimes dry and tear out, leaving a ragged shot-hole look, and
+      heavily spotted leaves yellow and drop. The same bacterium raises small
+      raised, scabby dark specks directly on green fruit.
+    - >
+      Numerous small dark, slightly greasy spots scattered across tomato
+      foliage, denser and more angular in outline than the fungal leaf spot
+      diseases, spreading fastest during warm, wet, wind-driven rain. Fruit
+      lesions, when present, are raised and scab-like rather than sunken.
+
+apple_healthy:
+  common_name: Healthy apple tissue
+  pathogen: none
+  species: apple
+  look_alikes: []
+  variants:
+    - >
+      Uniform green apple foliage with entire, undamaged margins and no spot,
+      scab, rust pustule or rot anywhere on the leaf surface. Tissue is
+      turgid and evenly coloured from base to tip.
+    - >
+      Apple leaves showing even colouration and an intact, unblemished
+      surface, with no velvety, sunken or pustular symptom of any kind.
+
+pepper_healthy:
+  common_name: Healthy pepper tissue
+  pathogen: none
+  species: pepper
+  look_alikes: []
+  variants:
+    - >
+      Evenly coloured green pepper foliage with no water-soaked spot, halo or
+      raised lesion anywhere on the blade, margins entire and undamaged.
+    - >
+      Pepper leaves uniformly green and structurally intact, free of any
+      bacterial or fungal spotting and showing no yellowing or necrotic
+      area.
+
+tomato_healthy:
+  common_name: Healthy tomato tissue
+  pathogen: none
+  species: tomato
+  look_alikes: []
+  variants:
+    - >
+      Uniform green tomato foliage with no lesion, mould, mosaic mottling,
+      curling or stippled discolouration anywhere on the leaf. Margins are
+      entire and the leaf lies flat.
+    - >
+      Tomato leaves evenly coloured from base to tip, free of spotting,
+      blighted tissue, powder or viral mottling, with normal leaf shape and
+      no curling.
+
+maize_healthy:
+  common_name: Healthy maize tissue
+  pathogen: none
+  species: maize
+  look_alikes: []
+  variants:
+    - >
+      Uniform green maize leaf tissue with no rectangular streak, pustule or
+      elongated blighted lesion anywhere on the blade, surface flat and
+      intact.
+    - >
+      Maize foliage evenly coloured along its full length, free of rust
+      pustules or grey-brown streaking, with entire undamaged margins.
+
+cherry_healthy:
+  common_name: Healthy cherry tissue
+  pathogen: none
+  species: cherry
+  look_alikes: []
+  variants:
+    - >
+      Evenly coloured green cherry leaves with no powdery coating, curling or
+      distortion, margins entire and surface smooth throughout.
+    - >
+      Cherry foliage free of any surface deposit, spot or shoot distortion,
+      uniformly green from the leaf base to the tip.
+
+potato_healthy:
+  common_name: Healthy potato tissue
+  pathogen: none
+  species: potato
+  look_alikes: []
+  variants:
+    - >
+      Uniform green potato foliage with no concentric ringed spot or
+      water-soaked blighted patch anywhere on the leaflets, margins entire.
+    - >
+      Potato leaves evenly coloured and structurally intact, free of any
+      dry ringed lesion or soft collapsing necrosis.
+
+strawberry_healthy:
+  common_name: Healthy strawberry tissue
+  pathogen: none
+  species: strawberry
+  look_alikes: []
+  variants:
+    - >
+      Evenly coloured green strawberry leaflets with no purplish blotching
+      or scorched edge anywhere on the leaf, margins entire and crisp-free.
+    - >
+      Strawberry foliage uniformly green and undamaged, free of any diffuse
+      purple-brown discolouration or curling at the leaf edge.
+
+peach_healthy:
+  common_name: Healthy peach tissue
+  pathogen: none
+  species: peach
+  look_alikes: []
+  variants:
+    - >
+      Uniform green peach foliage with no angular water-soaked spotting or
+      shot-hole perforation anywhere on the leaf, margins entire and intact.
+    - >
+      Peach leaves evenly coloured along the midrib and margins, free of any
+      vein-limited dark spotting or ragged perforation.
+
+grape_healthy:
+  common_name: Healthy grape tissue
+  pathogen: none
+  species: grape
+  look_alikes: []
+  variants:
+    - >
+      Evenly coloured green grape foliage with no interveinal striping,
+      black-dotted spot or blighted patch anywhere on the leaf, margins
+      entire.
+    - >
+      Grape leaves uniformly green from vein to margin, free of any tiger
+      striping, sunken spotting or advancing necrotic blight.
+
+hibiscus_nutrient_deficiency:
+  common_name: Hibiscus nutrient deficiency
+  pathogen: none (mineral deficiency, commonly iron or manganese)
+  species: hibiscus
+  look_alikes: [rose_nutrient_deficiency, hibiscus_leaf_spot]
+  variants:
+    - >
+      Hibiscus leaves yellow between the veins while a network of green
+      tissue remains along the vein lines, a pattern most pronounced on
+      younger leaves in iron deficiency. No lesion, halo, surface powder or
+      pustule accompanies the discolouration, and the leaf blade stays flat
+      and structurally normal throughout.
+    - >
+      Netted interveinal chlorosis on hibiscus foliage, veins staying green
+      against a yellowing background, with no spot or surface growth
+      anywhere on the leaf. Correcting the underlying nutrient supply
+      reverses new growth, unlike any true pathogen-driven disease on this
+      list.

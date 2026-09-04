@@ -1,0 +1,81 @@
+# FLORA attribute schema :: the "language bottleneck" vocabulary.
+# Every categorical head predicts exactly one value from its list.
+# 'not_applicable' exists so healthy tissue has a valid target.
+
+categorical:
+
+  colour:
+    description: dominant chromatic character of the affected tissue
+    values:
+      - not_applicable
+      - chlorotic_yellow
+      - necrotic_brown
+      - black
+      - rust_orange
+      - white_powdery
+      - water_soaked
+      - purple_red
+
+  margin:
+    description: how the lesion boundary meets healthy tissue
+    values:
+      - not_applicable
+      - sharply_defined
+      - diffuse_feathered
+      - halo_bearing
+      - angular_vein_limited
+
+  distribution:
+    description: spatial arrangement of lesions on the organ
+    values:
+      - not_applicable
+      - marginal
+      - interveinal
+      - random_scattered
+      - concentric_ringed
+      - uniform_general
+
+  texture:
+    description: surface relief and feel of the affected area
+    values:
+      - not_applicable
+      - powdery
+      - downy_fuzzy
+      - velvety_sporulating
+      - sunken_cankerous
+      - raised_pustular
+      - smooth_flat
+
+  organ:
+    description: plant organ shown in the image
+    values:
+      - leaf
+      - petal
+      - bud
+      - sepal
+      - stem
+
+ordinal:
+  severity:
+    description: extent of disease expression
+    n_bins: 5
+    labels:
+      0: none
+      1: trace
+      2: mild
+      3: moderate
+      4: severe
+
+regression:
+  coverage:
+    description: fraction of visible organ area showing symptoms
+    range: [0.0, 1.0]
+
+binary:
+  is_healthy:
+    description: 1 when the specimen shows no disease expression
+
+# Descriptors set by the class prior alone (cheap, no VLM needed):
+prior_only: [colour, margin, distribution, texture]
+# Descriptors that genuinely vary image to image (VLM refinement targets):
+instance_varying: [organ, severity, coverage]
