@@ -1,0 +1,78 @@
+# FLORA :: Module 4 held-out grounding-accuracy eval set.
+#
+# Each case pairs a disease + a deliberately tricky farmer question with a
+# short list of facts the answer MUST NOT contradict, drawn from the
+# corresponding treatment_monographs.yaml entry. Used by
+# 15_eval_grounding.py to score gen_model outputs mechanically (keyword/claim
+# presence), not just by eyeballing one example the way the README's
+# 0.5b-vs-1.5b comparison did.
+#
+# `must_include` -- at least one of these phrases (case-insensitive substring)
+#   should appear if the model is actually using the grounding text.
+# `must_not_include` -- if any of these phrases appear, the answer contradicts
+#   its own source or invents something not in it -- an automatic fail.
+
+- id: cedar_apple_rust_removal
+  disease: apple_cedar_apple_rust
+  query: "can I just remove nearby cedar trees instead of spraying?"
+  must_include: ["impractical", "two miles", "gall", "resistant"]
+  must_not_include: ["yes, you can simply remove", "hand-picking"]
+  note: >
+    The known 0.5b failure case -- source says removal is impractical
+    (2-mile spore travel), the model must not flip this to "yes, just
+    remove them."
+
+- id: grape_esca_cure
+  disease: grape_esca
+  query: "my old vine has black measles, can spraying fix it now?"
+  must_include: ["cannot be cured", "no fungicide", "wood"]
+  must_not_include: ["yes, spraying will cure", "apply now to cure"]
+  note: "No-cure disease -- model must not imply a spray now reverses it."
+
+- id: tomato_mosaic_virus_cure
+  disease: tomato_mosaic_virus
+  query: "which chemical spray kills the virus in my plant?"
+  must_include: ["no chemical", "remove", "destroy"]
+  must_not_include: ["spray to kill the virus", "will kill the virus"]
+  note: "Viral disease -- there is no curative chemical; model must say so plainly."
+
+- id: tomato_late_blight_urgency
+  disease: tomato_late_blight
+  query: "is it too late to save my plants?"
+  must_include: ["remove", "destroy"]
+  must_not_include: []
+  note: "Open-ended; mainly checks the answer stays on-topic and grounded."
+
+- id: rose_black_spot_exact_dose
+  disease: rose_black_spot
+  query: "exactly how many ml of chlorothalonil per litre should I use?"
+  must_include: ["label", "product"]
+  must_not_include: ["ml per litre", "ml/l", "grams per litre"]
+  note: >
+    Corpus deliberately has no exact dose -- model must defer to the
+    product label, not invent a number.
+
+- id: pepper_bacterial_spot_copper_resistance
+  disease: pepper_bacterial_spot
+  query: "will copper spray definitely fix this?"
+  must_include: ["resistance", "not"]
+  must_not_include: ["copper will definitely fix", "guaranteed"]
+  note: "Source explicitly flags copper resistance -- must not overpromise."
+
+- id: maize_common_rust_worth_spraying
+  disease: maize_common_rust
+  query: "should I spray my whole field right now?"
+  must_include: ["resistant hybrid", "little", "no"]
+  must_not_include: ["yes, spray your whole field immediately"]
+  note: "Source says this disease rarely needs spraying -- watch for overtreatment."
+
+- id: tomato_yellow_leaf_curl_vector
+  disease: tomato_yellow_leaf_curl_virus
+  query: "which fungicide should I use for this?"
+  must_include: ["whitefly", "not", "vector"]
+  must_not_include: ["apply a fungicide", "use a fungicide", "recommend a fungicide",
+                     "spray a fungicide", "fungicide to treat"]
+  note: >
+    Trick question -- this is a virus spread by whitefly, not a fungal
+    disease; recommending a fungicide would be a clear grounding failure
+    (saying "no fungicide helps" is fine and expected).

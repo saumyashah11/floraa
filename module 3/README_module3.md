@@ -269,6 +269,12 @@ startup and runs genuine live inference on whatever is typed into it:
   `artifacts/results/`.
 - **Case by case** — the qualitative gallery, image/text/both-fusion-routes
   predictions side by side per example.
+- **Treatment follow-up** — Module 4's treatment log. After getting advice
+  in the decoder tab, "Log this treatment" records it; this tab lists every
+  logged case with a one-click Better/Same/Worse form once you've actually
+  tried the treatment. See Module 4's README for the full design (it's a
+  Module 4 feature, `module 3/webapp/cases_db.py`, surfaced in this app
+  since that's where the treatment advice itself is shown).
 
 This app requires the pipeline above to have been run at least once (it
 loads checkpoints and result files that don't exist otherwise). It is
@@ -277,19 +283,43 @@ intentionally separate from any hosted demo of this project: the interactive
 so it would have to fake the encoder with keyword matching; this app has a
 real Python process behind it and never approximates.
 
-## What would make this stronger
+## Ablations that have actually been run
 
-The obvious next ablations, in the style Module 2's README asks for: sweep
-`--encoder` across `indicbert`/`marathi_bert`; retrain `FusionGate` with
-`--noise_max 0` to confirm the noise augmentation is what buys the
-robustness curve rather than the architecture alone; and train `DiseaseHead`
-with a few synthetic zero-image rows per untrained class (text evidence
-only, paired with a null image vector) to see whether it can be taught to
-at least *consider* a class it has no photos of, instead of having zero
-probability mass on it by construction. The corpus itself is still
-templated: real transcribed farmer queries from a pilot, once any exist,
-would matter more than any further code change here. And Module 1's own
-image-classification ceiling (visible in the `image_only` row throughout)
-is set by its Colab training run on datasets not present in this local
-checkout (`rose_leaf_disease-dataset`, `flower-leaf-diseases-dataset`) —
-improving it is a Module 1 retraining job, not a Module 3 one.
+**Encoder sweep** (`10_train_module3.py --encoder ...`, 58-class/11,163-query
+corpus, hidden=320): `muril` and `marathi_bert` both trained cleanly and land
+within a point or two of each other on every attribute head (muril: colour
+0.972/margin 0.936/organ 0.988; marathi_bert: colour 0.986/margin 0.942/organ
+0.992) — no clear winner at this scale. `indicbert` was attempted twice and
+killed after 30-40 minutes each time: its one-time embedding pass over the
+full corpus was far slower on this CPU than either muril or marathi_bert
+(which embed the same corpus in a few minutes), for reasons not diagnosed —
+a real GPU or a lot more patience would be needed to include it fairly.
+
+**`--noise_max 0` control**: retraining `FusionGate` with zero noise
+augmentation gave a robustness curve almost indistinguishable from the
+`--noise_max 3.0` version (`fusion_learned_acc` 0.920→0.916 from σ=0 to σ=9,
+vs. 0.917→0.911 with noise training) — the noise augmentation this project's
+main run uses does **not** show the differential benefit you'd expect
+("noise-trained gate degrades less under noise than a gate that never saw
+noise"). The likely reason: Module 1's image tower is itself weak in this
+proof-of-concept (few epochs, little data — see the top-level README), so
+`image_only` accuracy is already so low (~10-15%) that the gate learns to
+mostly deprioritize image evidence regardless of whether it was explicitly
+trained on noisy inputs. This ablation is worth rerunning once Module 1 is
+trained at full scale, where the image signal is strong enough that noise
+augmentation would have something real to protect against. Ablation results
+saved separately (`m3_fusion_report_noise0_ablation.json` and matching CSVs)
+so they don't overwrite the main run's files, which use `--noise_max 3.0`.
+
+## What would still make this stronger
+
+Train `DiseaseHead` with a few synthetic zero-image rows per untrained class
+(text evidence only, paired with a null image vector) to see whether it can
+be taught to at least *consider* a class it has no photos of, instead of
+having zero probability mass on it by construction. The corpus itself is
+still templated: real transcribed farmer queries from a pilot, once any
+exist, would matter more than any further code change here. And Module 1's
+own image-classification ceiling (visible in the `image_only` row
+throughout) is currently capped by this proof-of-concept's severe training
+data reduction (see the top-level README) — improving it is a Module 1
+retraining job at full scale, not a Module 3 one.

@@ -8,8 +8,10 @@
 
 # Model artifacts / checkpoints / caches (large, generated)
 /artifacts/checkpoints/
+/artifacts/checkpoints_old22class/
 /artifacts/cache/
 /artifacts/results/
+/artifacts/results_old22class/
 /artifacts/manifests/
 
 # Secrets
@@ -25,3 +27,5 @@ __pycache__/
 # Web app runtime data
 module 3/webapp/uploads/*
 !module 3/webapp/uploads/.gitkeep
+/artifacts/webapp_cases.sqlite3
+/artifacts/checkpoints_45perclass_3ep/

@@ -86,6 +86,41 @@ anything up.
 
 ---
 
+## These ablations have actually been run (on `m1_resnet50_joint`, minilm text bank)
+
+Both real runs, not projections — but on a severely CPU-capped proof-of-concept
+(45 seen classes, 45 train images/class, 3 epochs; see the top-level README),
+so read the *direction* of each finding, not the absolute numbers, as what
+would hold at full scale.
+
+**Encoder comparison** (H = harmonic mean of seen/unseen accuracy at best gamma):
+
+| encoder | seen@bestH | unseen@bestH | H | AUSUC |
+|---|---|---|---|---|
+| mpnet | 0.288 | 0.368 | **0.323** | 0.159 |
+| bge | 0.277 | 0.328 | 0.300 | 0.153 |
+| minilm | 0.275 | 0.288 | 0.282 | 0.137 |
+| scibert | 0.233 | 0.260 | 0.246 | 0.103 |
+
+mpnet wins; scibert is worst, sensibly — it's trained on scientific-paper
+text, not general-purpose sentence similarity, so it's the weakest fit for
+prose disease descriptions.
+
+**The `--use_features` control gave the failure-mode result, not the
+expected one**: unseen accuracy **rose** (0.289 → 0.469) instead of falling
+when the image tower could see raw backbone features. Per the sanity check
+above, this would normally mean something is leaking past the bottleneck.
+The more likely explanation here, given the severe data cap: with only 3
+epochs on 45 images/class, the 38-dim attribute bottleneck itself is still
+too undertrained to be a fair comparison — a rich 2048-dim generic
+(near-ImageNet) feature vector will simply beat a noisy, undertrained
+bottleneck at *everything*, seen and unseen alike, without needing to
+"leak" a shortcut. **This ablation needs to be rerun at full training scale
+before trusting either reading of it** — right now it's inconclusive, not
+confirmatory. Full report: `artifacts/results/m2_m1_resnet50_joint_minilm_feat_gzsl_report.json`.
+
+---
+
 ## Two failure modes, and what they mean
 
 **`proto` beats `text` on unseen classes.** Your monographs contain no symptom

@@ -44,6 +44,7 @@
         btn.classList.add("active");
         document.querySelectorAll(".panel").forEach(function(p){p.classList.remove("active");});
         document.getElementById("panel-"+btn.dataset.tab).classList.add("active");
+        if(btn.dataset.tab === "followup") loadCases();
       });
     });
   }
@@ -424,6 +425,7 @@
 
   var SELECTED_IMAGE_ID = null;
   var UPLOADED_FILE = null;
+  var LAST_TREATMENT_RESULT = null;
 
   function renderPhotoSelection(){
     document.querySelectorAll(".photo-thumb").forEach(function(el){
@@ -493,6 +495,13 @@
     return '<div class="route-block"><h4>'+title+'</h4>'+bars+'</div>';
   }
 
+  function qualityWarningHtml(quality, whatLabel){
+    if(!quality || !quality.issues || !quality.issues.length) return "";
+    var items = quality.issues.map(function(i){ return '<li>'+i.message+'</li>'; }).join("");
+    return '<div class="quality-warning"><b>Photo quality check:</b> '+whatLabel+
+      ' may not be reliable for diagnosis.<ul>'+items+'</ul></div>';
+  }
+
   function runDecode(){
     var text = document.getElementById("queryInput").value.trim();
     var card = document.getElementById("resultCard");
@@ -538,6 +547,8 @@
           (ok?'':label(res.true_label))+'</div>';
       }
       var photoNoteHtml = res.photo_note ? '<div class="upload-help">'+res.photo_note+'</div>' : "";
+      var qualityHtml = qualityWarningHtml(res.photo_quality, "the selected photo") +
+        qualityWarningHtml(res.uploaded_image && res.uploaded_image.quality, "your uploaded photo");
       var learnedNoteHtml = res.learned_route_note ? '<div class="upload-help">'+res.learned_route_note+'</div>' : "";
       var imageOnlyBlock = res.routes.image_only ? routeBlock("Image only (top 3)", res.routes.image_only, "image") : "";
       var learnedBlock = learnedAvailable
@@ -548,6 +559,7 @@
         '<div><label class="field-label">Detected symptoms (live MuRIL + trained heads)</label>'+
         '<div class="tag-row">'+chips+healthyChip+'</div></div>'+
         photoNoteHtml+
+        qualityHtml+
         '<div class="summary-panel"><div class="summary-grid">'+plantLine+imageLine+'</div>'+
         '<div class="gate-readout">Severity: <b>'+severityText+'</b> &middot; health score: '+Math.round(res.is_healthy_prob*100)+'% &middot; coverage: '+Math.round(res.coverage*100)+'%'+gateLine+'</div>'+
         '</div>'+
@@ -558,6 +570,16 @@
         '<div class="dv">'+label(top.cls)+'</div>'+
         '<div class="gate-readout">'+(res.image_used ? "Fused with real image evidence from the selected photo." : "Symptom-first classification with no photo evidence required.")+'</div>'+
         truthHtml+
+        '</div>'+
+        '<div class="treatment-block">'+
+        '<div class="treatment-row">'+
+        '<button class="go-btn secondary" id="treatmentBtn" data-disease="'+top.cls+'" data-confidence="'+top.p+'">Get treatment advice for '+label(top.cls)+'</button>'+
+        '<select id="treatmentLang" class="select lang-select" title="Output language">'+
+        '<option value="en">English</option>'+
+        '<option value="hi">हिन्दी (Hindi)</option>'+
+        '</select>'+
+        '</div>'+
+        '<div id="treatmentResult"></div>'+
         '</div>';
     }).catch(function(err){
       btn.disabled=false; btn.textContent="Decode & diagnose";
@@ -565,9 +587,164 @@
     });
   }
 
+  /* ================= MODULE 4: TREATMENT RAG ================= */
+  function fetchTreatment(disease, btn){
+    var out = document.getElementById("treatmentResult");
+    btn.disabled = true; btn.textContent = "Retrieving + generating (local model, 30-90s on CPU)…";
+    out.innerHTML = '<div class="placeholder-note">Running Module 4 retrieval + generation…</div>';
+
+    var followUp = document.getElementById("queryInput").value.trim();
+    var confidence = parseFloat(btn.dataset.confidence);
+    var langSel = document.getElementById("treatmentLang");
+    var language = langSel ? langSel.value : "en";
+    if(language === "hi"){
+      btn.textContent = "Retrieving + generating + translating (local models, 1-2 min on CPU)…";
+    }
+    fetch("/api/treatment", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({disease: disease, query: followUp, gen_model: "qwen1.5b",
+                            confidence: isNaN(confidence) ? null : confidence,
+                            language: language})
+    }).then(function(r){return r.json();}).then(function(res){
+      btn.disabled = false; btn.textContent = "Get treatment advice for " + label(disease);
+      if(res.error){ out.innerHTML = '<div class="placeholder-note">'+res.error+'</div>'; return; }
+      var passageHtml = res.passages.map(function(p){
+        return '<div class="treatment-passage"><span class="attr-tag">'+p.section+'</span> '+p.text+'</div>';
+      }).join("");
+      var seenUrls = {};
+      var citeHtml = res.passages.reduce(function(acc, p){
+        (p.sources||[]).forEach(function(s){
+          if(seenUrls[s.url]) return;
+          seenUrls[s.url] = true;
+          acc.push('<li><a href="'+s.url+'" target="_blank" rel="noopener">'+s.title+'</a></li>');
+        });
+        return acc;
+      }, []).join("");
+      var alikeHtml = (res.look_alikes||[]).map(function(n){
+        return '<div class="treatment-passage"><span class="attr-tag">look-alike</span> '+
+          n.look_alike_common_name+': '+n.look_alike_symptoms+'</div>';
+      }).join("");
+      var alikeBlock = alikeHtml
+        ? '<div class="upload-help">Diagnosis confidence was low, so this answer also checked '+
+          'symptom differences against likely look-alikes:</div>'+
+          '<details class="treatment-sources" open><summary>Possible look-alikes</summary>'+alikeHtml+'</details>'
+        : "";
+      var translatedNote = (res.language === "hi")
+        ? '<div class="upload-help">Translated to Hindi (NLLB-200) from the English answer below &mdash; '+
+          'if anything reads oddly, check the original.</div>'
+        : "";
+      var originalBlock = (res.language === "hi" && res.answer_en)
+        ? '<details class="treatment-sources"><summary>Original English answer</summary>'+
+          '<div class="treatment-passage">'+res.answer_en+'</div></details>'
+        : "";
+      LAST_TREATMENT_RESULT = res;
+      out.innerHTML =
+        '<div class="treatment-answer"><label class="field-label">Module 4 &mdash; retrieval-augmented answer ('+res.common_name+')</label>'+
+        translatedNote+
+        '<p lang="'+res.language+'">'+res.answer.replace(/\n/g, "<br>")+'</p></div>'+
+        alikeBlock+
+        originalBlock+
+        '<details class="treatment-sources"><summary>Grounding passages retrieved from treatment_monographs.yaml</summary>'+passageHtml+'</details>'+
+        (citeHtml ? '<details class="treatment-sources"><summary>Cited sources</summary><ul class="source-list">'+citeHtml+'</ul></details>' : "")+
+        '<button class="go-btn secondary" id="logCaseBtn">Log this treatment (track whether it works)</button>'+
+        '<div id="logCaseMsg"></div>';
+    }).catch(function(err){
+      btn.disabled = false; btn.textContent = "Get treatment advice for " + label(disease);
+      out.innerHTML = '<div class="placeholder-note">request failed: '+err+'</div>';
+    });
+  }
+
+  /* ================= TREATMENT FOLLOW-UP ================= */
+  function logCurrentTreatment(btn){
+    if(!LAST_TREATMENT_RESULT){ return; }
+    var res = LAST_TREATMENT_RESULT;
+    var species = document.getElementById("speciesSelect").value;
+    var msg = document.getElementById("logCaseMsg");
+    btn.disabled = true; btn.textContent = "Logging…";
+    fetch("/api/cases", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({
+        disease: res.disease, common_name: res.common_name,
+        species: species, treatment_answer: res.answer, language: res.language
+      })
+    }).then(function(r){return r.json();}).then(function(created){
+      btn.textContent = "Logged ✓";
+      msg.innerHTML = '<div class="upload-help">Case #'+created.id+' logged. '+
+        'Check the "Treatment follow-up" tab later to record whether it worked.</div>';
+    }).catch(function(err){
+      btn.disabled = false; btn.textContent = "Log this treatment (track whether it works)";
+      msg.innerHTML = '<div class="placeholder-note">failed to log: '+err+'</div>';
+    });
+  }
+
+  function loadCases(){
+    var el = document.getElementById("casesList");
+    fetch("/api/cases").then(function(r){return r.json();}).then(renderCases)
+      .catch(function(err){
+        el.innerHTML = '<div class="placeholder-note">failed to load cases: '+err+'</div>';
+      });
+  }
+
+  function renderCases(cases){
+    var el = document.getElementById("casesList");
+    if(!cases.length){
+      el.innerHTML = '<div class="placeholder-note">No cases logged yet. After getting '+
+        'treatment advice in the Symptom decoder tab, click "Log this treatment" to start '+
+        'tracking one.</div>';
+      return;
+    }
+    el.innerHTML = cases.map(function(c){
+      var date = new Date(c.created_at).toLocaleDateString();
+      var statusHtml;
+      if(c.followup_result){
+        var pillClass = c.followup_result === "better" ? "good" : (c.followup_result === "worse" ? "bad" : "");
+        statusHtml = '<span class="truth-pill '+pillClass+'">'+c.followup_result+'</span>'+
+          (c.followup_notes ? '<div class="case-notes">"'+c.followup_notes+'"</div>' : "");
+      } else {
+        statusHtml =
+          '<div class="case-followup-form" data-case-id="'+c.id+'">'+
+          '<div class="chip-row">'+
+          '<button class="chip followup-btn" data-result="better">Better</button>'+
+          '<button class="chip followup-btn" data-result="same">Same</button>'+
+          '<button class="chip followup-btn" data-result="worse">Worse</button>'+
+          '</div>'+
+          '<input type="text" class="followup-notes-input" placeholder="optional notes">'+
+          '</div>';
+      }
+      return '<div class="case-row">'+
+        '<div class="case-head"><b>'+label(c.common_name || c.disease)+'</b>'+
+        (c.species ? ' &middot; '+label(c.species) : '')+
+        ' <span class="case-date">logged '+date+'</span></div>'+
+        statusHtml+
+        '</div>';
+    }).join("");
+  }
+
+  function submitFollowup(caseId, result, notes, formEl){
+    fetch("/api/cases/"+caseId+"/followup", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({result: result, notes: notes || null})
+    }).then(function(r){return r.json();}).then(function(){
+      loadCases();
+    }).catch(function(err){
+      formEl.innerHTML = '<div class="placeholder-note">failed: '+err+'</div>';
+    });
+  }
+
   /* ================= INIT ================= */
   function init(){
     initTabs();
+    document.getElementById("casesList").addEventListener("click", function(e){
+      var fbtn = e.target.closest(".followup-btn");
+      if(!fbtn) return;
+      var form = fbtn.closest(".case-followup-form");
+      var caseId = form.dataset.caseId;
+      var notes = form.querySelector(".followup-notes-input").value.trim();
+      submitFollowup(caseId, fbtn.dataset.result, notes, form);
+    });
     renderSymptomLexicon();
     renderSelectedSymptoms();
     fetch("/api/report").then(function(r){return r.json();}).then(function(data){
@@ -582,6 +759,12 @@
     });
     fetch("/api/examples").then(function(r){return r.json();}).then(populatePickers);
     document.getElementById("diagnoseBtn").addEventListener("click", runDecode);
+    document.getElementById("resultCard").addEventListener("click", function(e){
+      var btn = e.target.closest("#treatmentBtn");
+      if(btn) fetchTreatment(btn.dataset.disease, btn);
+      var logBtn = e.target.closest("#logCaseBtn");
+      if(logBtn) logCurrentTreatment(logBtn);
+    });
     document.getElementById("queryInput").addEventListener("input", function(){
       this.dataset.userTyped = "true";
     });

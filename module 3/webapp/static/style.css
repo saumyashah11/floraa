@@ -161,6 +161,40 @@ textarea#queryInput:focus{outline:2px solid var(--accent); outline-offset:1px;}
 .summary-item .value{font-weight:700; font-size:14px;}
 .placeholder-note{color:var(--muted); font-size:13.5px; padding:20px 4px;}
 
+.quality-warning{border:1px solid var(--accent-4); border-radius:10px; padding:10px 14px;
+  background:var(--surface-2); font-size:12.5px; line-height:1.55; margin-top:2px;}
+.quality-warning b{color:var(--accent-4);}
+.quality-warning ul{margin:6px 0 0 18px; padding:0;}
+.quality-warning li{margin-bottom:2px;}
+
+.treatment-block{margin-top:4px;}
+.treatment-row{display:flex; gap:8px; align-items:stretch;}
+.treatment-row .go-btn{flex:1; margin-top:0;}
+.lang-select{width:auto; flex:0 0 150px;}
+
+.case-row{padding:14px 0; border-bottom:1px solid var(--border);}
+.case-row:last-child{border-bottom:none;}
+.case-head{font-size:14px;}
+.case-date{color:var(--muted); font-size:12px; font-weight:400;}
+.case-notes{font-size:12.5px; color:var(--ink-2); margin-top:6px; font-style:italic;}
+.case-followup-form{margin-top:8px;}
+.followup-notes-input{
+  width:100%; margin-top:8px; padding:8px 10px; border-radius:8px;
+  border:1px solid var(--border); background:var(--page-bg); color:var(--ink); font-size:13px;
+}
+.go-btn.secondary{background:var(--surface-2); color:var(--ink); border:1px solid var(--border);}
+.go-btn.secondary:hover{filter:none; background:var(--surface-3, var(--surface-2));}
+.treatment-answer{border:1px solid var(--border); border-radius:10px; padding:14px 16px;
+  background:var(--surface-2); margin-top:10px;}
+.treatment-answer p{font-size:13.5px; line-height:1.6; margin-top:8px;}
+.treatment-sources{margin-top:10px; font-size:12.5px; color:var(--muted);}
+.treatment-sources summary{cursor:pointer; font-weight:600;}
+.treatment-passage{padding:8px 0; border-top:1px dashed var(--border); line-height:1.5;}
+.treatment-passage:first-of-type{border-top:none;}
+.source-list{margin-top:6px; padding-left:18px;}
+.source-list li{margin-bottom:4px;}
+.source-list a{color:var(--accent); word-break:break-all;}
+
 /* ---------- charts ---------- */
 .chart-card{padding:22px 22px 18px; margin-bottom:20px;}
 .chart-card h3{font-size:15px; font-weight:700; margin-bottom:2px;}

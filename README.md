@@ -150,3 +150,56 @@ fractional accuracy win.
 `ZSL_UNSEEN` classes in `config.py` never appear in training and are Module 2's
 entire evaluation set. Do not train on them, and do not quietly add them back
 when accuracy disappoints.
+
+---
+
+## 6. Photo quality pre-check (`photo_quality.py`)
+
+Every ablation in this project (Module 2's bottleneck-leak control, Module
+3's route comparison and robustness sweep) shows the same thing:
+`image_only` is consistently the weakest signal. Before assuming that's the
+model, check whether it's the photo. `photo_quality.py` flags blur (Laplacian
+variance), under/over-exposure, and blank/flat images, with thresholds
+**calibrated from this project's own real training images**, not invented:
+"too blurry" means blurrier than the bottom 5% of real dataset photos.
+
+```bash
+python photo_quality.py --calibrate          # writes artifacts/photo_quality_thresholds.json
+python photo_quality.py --image path/to.jpg  # assess one photo
+```
+
+Wired into the webapp: every diagnosis (`/api/decode`) now returns a
+`photo_quality` field for the selected/uploaded image, rendered as an amber
+warning banner in the Symptom decoder tab when triggered — it warns, it
+never blocks (a genuinely sick, well-photographed leaf should never be
+refused).
+
+**Honest calibration note**: on a random sample of 300 real dataset images,
+**22% get flagged overall** — noticeably higher than any single check's ~5-10%
+design target, because five largely-independent checks (blur, two shades of
+it, over/under-exposure, blank-detection) are OR'd together, and their union
+naturally exceeds any one threshold's individual rate. This is expected
+behavior for a multi-check system, not a miscalibration — but it does mean
+roughly 1 in 5 of the real photos already used to train/evaluate this
+project's own models would get a quality warning if run back through this
+check. Tightening any individual threshold to lower that combined rate would
+trade away real detections (a genuinely blurry photo going unflagged) —
+worth knowing about, not a bug to silently "fix" by loosening the numbers.
+
+---
+
+## 7. Tests
+
+`tests/` covers what a training run would otherwise only reveal as a
+confusing mid-pipeline crash: cross-file consistency between
+`class_priors.csv`, `disease_monographs.yaml` (module 2) and
+`treatment_monographs.yaml` (module 4), model forward-pass shapes for all
+three Module 1 modes, Module 2's attribute-span/prototype math, Module 3's
+species-mask logic, and Module 4's retrieval/look-alike/prompt-building
+logic. None of it needs a GPU, trained checkpoints, or real images/network
+access -- it runs in seconds.
+
+```bash
+pip install -q pytest
+pytest tests/ -v
+```

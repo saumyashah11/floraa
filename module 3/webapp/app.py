@@ -35,6 +35,7 @@ ROOT = M3.parent
 sys.path.insert(0, str(M3))
 sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "module 2"))
+sys.path.insert(0, str(ROOT / "module 4"))
 
 from config import CORPUS, CKPTS, RESULTS, CACHE  # noqa: E402
 from flora_align import normalise_attr, SPANS, ATTR_DIM  # noqa: E402
@@ -43,6 +44,11 @@ from flora_text import (FloraTextAttributeNet, FusionGate, DiseaseHead,
                         species_onehot, species_restricted_mask,
                         SPECIES_LIST, ALL_CLASSES, TEXT_ENCODERS,
                         CAT_HEADS, CAT_VALUES, N_SEVERITY)  # noqa: E402
+from flora_rag import load_corpus as load_treatment_corpus  # noqa: E402
+from flora_rag import embed_passages as embed_treatment_corpus  # noqa: E402
+from flora_rag import answer as rag_answer  # noqa: E402
+import photo_quality  # noqa: E402
+import cases_db  # noqa: E402
 
 DEVICE = "cpu"
 app = Flask(__name__)
@@ -95,6 +101,16 @@ ATTR_LOGITS = np.load(_export / "attr_logits.npy")
 print(f"loaded {len(META):,} real Module 1 image records for the photo picker")
 
 CORPUS_DF = pd.read_csv(CORPUS / "query_corpus.csv", encoding="utf-8-sig")
+
+print("loading module 4 treatment corpus...")
+TREATMENT_PASSAGES = load_treatment_corpus()
+TREATMENT_EMB = embed_treatment_corpus(
+    TREATMENT_PASSAGES, encoder="minilm", cache=CACHE / "treatment_minilm.npz")
+print(f"loaded {len(TREATMENT_PASSAGES)} treatment passages "
+      f"across {len(set(p['label'] for p in TREATMENT_PASSAGES))} classes")
+
+cases_db.init_db()
+print(f"treatment follow-up log ready ({len(cases_db.list_cases())} cases on record)")
 
 print("ready.")
 
@@ -197,6 +213,7 @@ def run_diagnosis(text: str, species_choice: str, image_id):
         "true_species": true_species,
         "image_path": image_path,
         "image_id": image_id,
+        "photo_quality": check_photo_quality(image_path) if image_used else None,
         "species_used": species,
         "gate_image_weight": float(w[0]),
         "learned_route_available": not DISEASE_HEAD_STALE,
@@ -253,6 +270,15 @@ def media(row_id):
     return send_file(path)
 
 
+def check_photo_quality(path):
+    """Wraps photo_quality.assess so a missing calibration file degrades to
+    'no check available' instead of crashing the request."""
+    try:
+        return photo_quality.assess(path)
+    except Exception as e:
+        return {"ok": None, "issues": [], "error": str(e)}
+
+
 def save_uploaded_image(upload_file):
     if upload_file is None or not upload_file.filename:
         return None
@@ -262,10 +288,12 @@ def save_uploaded_image(upload_file):
     unique_name = f"{stem}_{uuid4().hex[:8]}{suffix or '.png'}"
     path = UPLOAD_DIR / unique_name
     upload_file.save(path)
+    quality = check_photo_quality(path)
     return {
         "filename": original_name,
         "url": f"/uploads/{unique_name}",
         "size_bytes": int(path.stat().st_size),
+        "quality": quality,
     }
 
 
@@ -310,6 +338,76 @@ def api_decode():
     result = run_diagnosis(text, species, image_id)
     result["species_known"] = species not in (None, "", "unknown")
     return jsonify(result)
+
+
+@app.route("/api/treatment", methods=["POST"])
+def api_treatment():
+    """Module 4: given a diagnosed disease (and optionally the farmer's own
+    follow-up question), retrieve grounded treatment passages and generate a
+    short answer with a local instruction model. The generator loads lazily
+    on first call so app startup doesn't pay for it unless this tab is used."""
+    body = request.get_json(force=True, silent=True) or {}
+    disease = body.get("disease")
+    query = (body.get("query") or "").strip() or None
+    gen_model = body.get("gen_model", "qwen1.5b")
+    if gen_model not in ("qwen0.5b", "qwen1.5b"):
+        gen_model = "qwen1.5b"
+    confidence = body.get("confidence")
+    confidence = float(confidence) if confidence is not None else None
+    language = body.get("language", "en")
+    if language not in ("en", "hi"):
+        language = "en"
+    if not disease:
+        return jsonify({"error": "missing 'disease'"}), 400
+    try:
+        result = rag_answer(disease, query=query, k=4, encoder="minilm",
+                            gen_model=gen_model, passages=TREATMENT_PASSAGES,
+                            emb=TREATMENT_EMB, confidence=confidence,
+                            language=language)
+    except KeyError as e:
+        return jsonify({"error": str(e)}), 404
+    return jsonify({
+        "disease": result["disease"],
+        "common_name": result["common_name"],
+        "passages": result["passages"],
+        "answer": result["answer"],
+        "answer_en": result["answer_en"],
+        "language": result["language"],
+        "look_alikes": result["look_alikes"],
+    })
+
+
+@app.route("/api/cases", methods=["GET", "POST"])
+def api_cases():
+    """Treatment follow-up log. GET lists logged cases (most recent first);
+    POST logs a new one right after treatment advice was shown."""
+    if request.method == "GET":
+        return jsonify(cases_db.list_cases())
+
+    body = request.get_json(force=True, silent=True) or {}
+    disease = body.get("disease")
+    if not disease:
+        return jsonify({"error": "missing 'disease'"}), 400
+    case_id = cases_db.create_case(
+        disease=disease,
+        common_name=body.get("common_name"),
+        species=body.get("species"),
+        treatment_answer=body.get("treatment_answer"),
+        language=body.get("language", "en"),
+    )
+    return jsonify(cases_db.get_case(case_id)), 201
+
+
+@app.route("/api/cases/<int:case_id>/followup", methods=["POST"])
+def api_case_followup(case_id):
+    body = request.get_json(force=True, silent=True) or {}
+    result = body.get("result")
+    if result not in cases_db.VALID_RESULTS:
+        return jsonify({"error": f"'result' must be one of {sorted(cases_db.VALID_RESULTS)}"}), 400
+    ok = cases_db.record_followup(case_id, result, notes=body.get("notes"))
+    if not ok:
+        return jsonify({"error": f"no case with id {case_id}"}), 404
+    return jsonify(cases_db.get_case(case_id))
 
 
 @app.route("/api/report")

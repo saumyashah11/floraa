@@ -1,0 +1,9 @@
+{
+  "blur_variance_p05": 148.49596812127857,
+  "blur_variance_p10": 356.4187281175982,
+  "brightness_p05": 77.03248825073243,
+  "brightness_p95": 160.5519187927246,
+  "contrast_p05": 24.199712492066293,
+  "n_calibration_images": 1500,
+  "source_manifest": "manifest_attr_full.csv"
+}

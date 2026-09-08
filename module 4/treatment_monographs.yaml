@@ -1,0 +1,1243 @@
+# FLORA :: Module 4 treatment/remedy corpus.
+#
+# Keyed by the same canonical_label as module 2/disease_monographs.yaml, so a
+# diagnosis from Modules 1-3 maps directly to a treatment entry here. Each
+# disease entry carries four short passages -- cultural, organic, chemical,
+# prevention -- which flora_rag.py embeds and retrieves independently, so a
+# farmer's follow-up question ("is there anything I can spray without
+# chemicals?") can match the organic passage specifically rather than the
+# whole monograph.
+#
+# SOURCING: every disease entry below is paraphrased from real university
+# extension / agricultural-research publications (Clemson HGIC, UC IPM,
+# Cornell, UMN, UF/IFAS, Crop Protection Network, and similarly authoritative
+# sources), not written from general knowledge -- each entry carries a
+# `sources` list (title + URL) naming exactly what it's grounded in. Where a
+# source discusses copper/fungicide resistance or phytotoxicity, that caveat
+# is kept rather than smoothed over. Chemical guidance still names
+# active-ingredient classes, not exact commercial doses -- product
+# concentration varies by formulation and region, so the correct rate is
+# always the one on that product's own label. This is general
+# integrated-pest-management guidance grounded in the cited sources, not a
+# substitute for a local agricultural extension office.
+#
+# Healthy classes carry only a short maintenance note (no disease to treat,
+# so no sources are attached).
+
+rose_black_spot:
+  common_name: Rose black spot
+  cultural: >
+    Plant resistant varieties and maintain sanitation by removing infected
+    leaves and affected canes with dark lesions. Keep leaves dry: use soaker
+    hoses instead of overhead watering and space plants for air circulation.
+  organic: >
+    Copper fungicides are available for homeowner use against black spot.
+  chemical: >
+    Recommended active ingredients are chlorothalonil, mancozeb,
+    myclobutanil, and propiconazole.
+  prevention: >
+    Select disease-resistant varieties such as 'Pride N Joy' (hybrid tea) or
+    shrub roses, which require fewer chemical controls; black-spot severity
+    is high enough in some regions that fungicides are needed to grow many
+    cultivars successfully, and work best applied preventively.
+  sources:
+    - title: "Rose Diseases | Home & Garden Information Center (Clemson HGIC)"
+      url: "https://hgic.clemson.edu/factsheet/rose-diseases/"
+
+rose_powdery_mildew:
+  common_name: Rose powdery mildew
+  cultural: >
+    Resistant varieties are the best defense. Remove diseased leaves and
+    canes during the growing season. Provide good air circulation by
+    pruning excess foliage and proper spacing, avoid excess nitrogen (lush
+    shaded foliage favors the disease), and locate plants in sunny areas --
+    it is worst in shade at 70-80F with high nighttime humidity.
+    Unlike most rose diseases, overhead watering can help: "a film of water
+    inhibits infection," and mid-morning watering washes spores off while
+    still drying quickly.
+  organic: >
+    Sulfur, neem oil, baking soda mixed with horticultural oil, and
+    potassium bicarbonate (e.g. MilStop) are documented organic options.
+    Never apply an oil within two weeks of a sulfur application or above
+    90F, and don't spray oils on water-stressed plants.
+  chemical: >
+    Propiconazole, thiophanate-methyl, and myclobutanil (both eradicant and
+    protectant) are recommended; phosphonate-based systemic products (e.g.
+    Monterey Garden Phos) are another option.
+  prevention: >
+    Resistant cultivars such as 'Iceberg' and 'Julia Child' need
+    substantially less spraying.
+  sources:
+    - title: "Rose Diseases | Home & Garden Information Center (Clemson HGIC)"
+      url: "https://hgic.clemson.edu/factsheet/rose-diseases/"
+    - title: "Powdery Mildew on Ornamentals (UC IPM)"
+      url: "https://ipm.ucanr.edu/home-and-landscape/powdery-mildew-on-ornamentals/"
+
+rose_downy_mildew:
+  common_name: Rose downy mildew
+  cultural: >
+    Keep relative humidity below 85% (the critical threshold) through
+    ventilation, plant spacing, and raising curtain walls during
+    condensation; industrial fans help but should be avoided during active
+    sporulation, which can spread spores. Remove leaf debris carefully
+    without stirring up sporangia into the air -- they stay viable on dried
+    fallen leaves for up to a month. Cut and bag affected plant parts,
+    sealed immediately. Scout semi-weekly during favorable weather; visible
+    symptoms appear within four days of infection.
+  organic: >
+    Copper phosphites applied early in the plant's life help suppress
+    outbreaks preventively.
+  chemical: >
+    Efficacy trials showed excellent control from azoxystrobin, cyazofamid,
+    dimethomorph, mancozeb/copper hydroxide, mefenoxam, and phosphonate
+    fungicides -- but mefenoxam alone may not offer much control and
+    encourages resistance, so rotate it with protectants. High-volume sprays
+    of fosetyl-aluminium gave good control on outdoor container roses.
+    Programs starting with potassium phosphite (3-4 applications on a
+    10-14 day schedule after bud break) significantly reduced severity.
+  prevention: >
+    Rotate fungicide modes of action (protectant + systemic) to extend
+    treatment intervals and slow resistance development.
+  sources:
+    - title: "Getting To Grips With Downy Mildew In Rose Stems (Cropnuts)"
+      url: "https://cropnuts.com/downy-mildew-in-rose-stems/"
+    - title: "Rose downy mildew disease control (Nursery Management)"
+      url: "https://www.nurserymag.com/article/rose-downy-mildew-disease-control/"
+    - title: "The effect of fungicides, irrigation and plant density on Peronospora sparsa (Annals of Applied Biology)"
+      url: "https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1744-7348.2002.tb00174.x"
+
+rose_rust:
+  common_name: Rose rust
+  cultural: >
+    Provide good air circulation and do not plant roses in crowded areas.
+    Water before noon and avoid wetting leaves. Apply a fresh mulch layer,
+    and remove/destroy infected leaves and pustuled canes over winter, since
+    the fungus overwinters in litter.
+  organic: >
+    Sulfur and chlorothalonil act as protectant fungicides against rust.
+  chemical: >
+    Myclobutanil or propiconazole provide systemic (foliar) control of
+    existing disease; apply at the first sign of pale upper-leaf flecking,
+    before pustules break through the lower surface.
+  prevention: >
+    Avoid overhead watering, space plants for airflow, and inspect new
+    stock for pustules before introducing it to a bed.
+  sources:
+    - title: "Rose Diseases | Home & Garden Information Center (Clemson HGIC)"
+      url: "https://hgic.clemson.edu/factsheet/rose-diseases/"
+
+rose_anthracnose:
+  common_name: Rose anthracnose
+  cultural: >
+    Rose anthracnose (Elsinoe rosarum, formerly Sphaceloma rosarum) spreads
+    during extended wet weather at moderate temperatures. Switching to
+    soaker hoses or drip irrigation can prevent the disease; adequate
+    spacing between plants also limits development. Hybrid teas and
+    old-fashioned climbing/rambler roses are the most affected.
+  organic: >
+    Sanitation (removing affected material) is the primary organic-adjacent
+    control documented for this disease; neem oil is used as a general
+    preventive on other rose fungal diseases.
+  chemical: >
+    A preventive fungicide program is recommended once cultural controls
+    prove inadequate; chlorothalonil is a documented preventive option for
+    the following season.
+  prevention: >
+    Environmental management -- reducing moisture and improving air
+    circulation -- is the primary preventive approach; this disease is
+    uncommon where climates rarely provide extended wet, moderate-temperature
+    conditions.
+  sources:
+    - title: "Roses: Diseases and Abiotic Disorders (UC IPM)"
+      url: "https://ipm.ucanr.edu/home-and-landscape/roses-diseases-and-abiotic-disorders/?fr=4357"
+
+rose_botrytis_flower_blight:
+  common_name: Rose grey mould / blossom blight
+  cultural: >
+    "Keeping the area clean is more important than anything else" for
+    Botrytis blight -- prune fading blossoms and diseased leaves and avoid
+    wetting leaves when watering. Most active at 62-72F in moist conditions.
+  organic: >
+    Neem oil (clarified hydrophobic extract) has been used on a trial
+    basis.
+  chemical: >
+    Thiophanate-methyl and chlorothalonil are documented options, with
+    copper applied on dormant bushes.
+  prevention: >
+    Remove faded flowers promptly through the whole season and avoid dense
+    plantings and overhead watering during bloom.
+  sources:
+    - title: "Rose Diseases | Home & Garden Information Center (Clemson HGIC)"
+      url: "https://hgic.clemson.edu/factsheet/rose-diseases/"
+
+marigold_leaf_spot:
+  common_name: Marigold leaf spot
+  cultural: >
+    Water early in the day so foliage has a chance to dry before nightfall,
+    and remove affected leaves promptly to minimize spread.
+  organic: >
+    Sanitation (removing fallen and infected leaves) is the primary
+    organic-compatible practice documented for this disease.
+  chemical: >
+    Chlorothalonil and thiophanate-methyl are registered options; mancozeb
+    and copper compounds are also used for Alternaria-type leaf spots on
+    ornamentals.
+  prevention: >
+    Rotate plantings to new beds where leaf spot has recurred, and avoid
+    late-day overhead watering.
+  sources:
+    - title: "Marigold (Tagetes) | Connecticut Agricultural Experiment Station Plant Pest Handbook"
+      url: "https://portal.ct.gov/CAES/Plant-Pest-Handbook/pphM/Marigold-Tagetes"
+
+marigold_powdery_mildew:
+  common_name: Marigold powdery mildew
+  cultural: >
+    Thin crowded plantings for airflow and avoid excess nitrogen, which
+    encourages the soft new growth mildew colonises fastest.
+  organic: >
+    Sulfur products (e.g. wettable sulfur formulated at roughly 80%,
+    applied at 3-10 lb/acre) are a documented Group M2 option; milk spray
+    and potassium bicarbonate are general low-toxicity alternatives used
+    across ornamental powdery mildews.
+  chemical: >
+    Copper, sulfur, or thiophanate-methyl are documented fungicide options
+    for marigold specifically; apply before symptoms develop and repeat at
+    7-14 day intervals, shorter when conditions favor disease.
+  prevention: >
+    Never apply an oil within two weeks of a sulfur application, since the
+    combination can injure plants.
+  sources:
+    - title: "Calendula (Pot Marigold) / Marigold (Tagetes spp.) — Powdery Mildew (Pacific Northwest Pest Management Handbooks)"
+      url: "https://pnwhandbooks.org/plantdisease/host-disease/calendula-pot-marigold-powdery-mildew"
+    - title: "Powdery Mildew on Ornamentals (UC IPM)"
+      url: "https://ipm.ucanr.edu/home-and-landscape/powdery-mildew-on-ornamentals/"
+
+marigold_botrytis_flower_blight:
+  common_name: Marigold blossom blight
+  cultural: >
+    Good sanitation -- grooming plants and removing spent or senescing
+    flowers -- minimizes infection potential. Avoid wetting flowers when
+    watering, and ensure adequate plant spacing to promote air circulation.
+  organic: >
+    Sanitation is the primary organic-compatible control documented for
+    this disease -- remove and destroy infected blooms promptly during an
+    outbreak.
+  chemical: >
+    Control can be achieved with fungicide sprays applied as soon as
+    symptoms are visible; iprodione, chlorothalonil, and thiophanate-methyl
+    are registered options for this disease.
+  prevention: >
+    Avoid dense plantings and overhead watering during bloom, and clear
+    faded flowers regularly through the season.
+  sources:
+    - title: "Marigold (Tagetes) | Connecticut Agricultural Experiment Station Plant Pest Handbook"
+      url: "https://portal.ct.gov/CAES/Plant-Pest-Handbook/pphM/Marigold-Tagetes"
+    - title: "Marigold (Tagetes spp.) — Botrytis Blight (Pacific Northwest Pest Management Handbooks)"
+      url: "https://pnwhandbooks.org/plantdisease/host-disease/marigold-tagetes-spp-botrytis-blight"
+
+hibiscus_leaf_spot:
+  common_name: Hibiscus leaf spot
+  cultural: >
+    Water without getting the leaves wet, and ensure adequate sunlight and
+    air movement so leaves dry quickly. Remove severely affected leaves or
+    prune branches to improve plant balance. This problem is largely
+    cosmetic and almost never harmful to the plant; it often resolves on
+    its own once nights are warm enough that leaves stay dry.
+  organic: >
+    No organic-specific spray is documented beyond cultural/environmental
+    management; natural resolution occurs as conditions become less
+    favorable for the fungus/bacteria.
+  chemical: >
+    A fungicide-containing product applied at first sign of infection can
+    keep it from spreading, though it will not remove existing spots;
+    chlorothalonil, myclobutanil, or thiophanate-methyl are documented
+    active ingredients for hibiscus/ornamental leaf spot, most effective
+    applied before or at first symptoms.
+  prevention: >
+    Space plants for airflow and avoid wetting foliage when watering,
+    particularly in humid climates where this disease is most persistent.
+  sources:
+    - title: "Hidden Valley Hibiscus — Leaf Fungus"
+      url: "https://www.hiddenvalleyhibiscus.com/care/leaffungus.htm"
+
+hibiscus_rust:
+  common_name: Hibiscus rust
+  cultural: >
+    Remove and destroy leaves showing pustules as soon as seen, and clean
+    up infected leaves and fallen debris, since rust fungi commonly
+    overwinter there.
+  organic: >
+    Sulfur spray is a standard organic option against rust fungi generally,
+    applied before pustules erupt.
+  chemical: >
+    Products with myclobutanil or azoxystrobin are most effective against
+    rust fungi; fungicides must be applied to healthy green tissue early in
+    the season before infection begins -- they will not cure or remove
+    existing rust infections.
+  prevention: >
+    Avoid overhead watering, space plants for airflow, and inspect new
+    stock closely -- rust spreads readily on infected cuttings.
+  sources:
+    - title: "Aggregated extension guidance on rust fungicide management (search-derived; UMN Extension \"Rust in the flower garden\" and related sources)"
+      url: "https://extension.umn.edu/plant-diseases/rust-flower-garden"
+
+generic_leaf_spot:
+  common_name: Fungal leaf spot (unspecified)
+  cultural: >
+    Remove affected leaves, water at the base rather than overhead, and
+    improve airflow around the plant -- these general measures control most
+    fungal leaf-spot pathogens regardless of species. If the plant and
+    pathogen are known, consult that specific entry for more targeted
+    guidance.
+  organic: >
+    Sanitation (removing fallen and infected leaves) is the organic
+    approach consistently documented across specific leaf-spot diseases in
+    this corpus.
+  chemical: >
+    Broad-spectrum protectant fungicides -- chlorothalonil, mancozeb, or
+    copper -- are the active ingredients most consistently recommended
+    across the specific leaf-spot diseases in this corpus (rose, marigold,
+    hibiscus, tomato), applied on a 7-14 day schedule before symptoms
+    appear.
+  prevention: >
+    Sanitation and avoiding overhead watering prevent the large majority of
+    fungal leaf-spot diseases documented in university extension guidance.
+  sources:
+    - title: "Rose Diseases | Home & Garden Information Center (Clemson HGIC)"
+      url: "https://hgic.clemson.edu/factsheet/rose-diseases/"
+    - title: "Tomato Diseases & Disorders | Home & Garden Information Center (Clemson HGIC)"
+      url: "https://hgic.clemson.edu/factsheet/tomato-diseases-disorders/"
+
+generic_powdery_mildew:
+  common_name: Powdery mildew (unspecified)
+  cultural: >
+    Provide good air circulation by pruning and spacing, avoid excess
+    nitrogen (which causes lush foliage favoring the fungus), and locate
+    plants in sunny areas -- shade combined with 60-80F promotes disease.
+    Unlike most fungal diseases, overhead sprinkling can reduce spread
+    because it washes spores off; water mid-morning so foliage still dries.
+  organic: >
+    Sulfur products have been used for centuries but only work applied
+    before symptoms appear; horticultural/neem oils are eradicant but must
+    not be combined with sulfur within 2 weeks or used above 90F; potassium
+    bicarbonate (e.g. MilStop) offers eradicant activity with some risk of
+    injury on advanced infections.
+  chemical: >
+    Myclobutanil functions as both eradicant and protectant; phosphonate-
+    based systemic products are another documented option.
+  prevention: >
+    Favor resistant varieties where available -- documented resistant
+    selections exist for crape myrtle, rose, phlox, and zinnia -- and avoid
+    dense, poorly ventilated plantings.
+  sources:
+    - title: "Powdery Mildew on Ornamentals (UC IPM)"
+      url: "https://ipm.ucanr.edu/home-and-landscape/powdery-mildew-on-ornamentals/"
+
+generic_rust:
+  common_name: Rust (unspecified)
+  cultural: >
+    Remove and destroy pustuled leaves as soon as seen, and clear fallen
+    leaf litter, since rust fungi commonly overwinter there. Provide good
+    air circulation and avoid crowding.
+  organic: >
+    Sulfur spray is the organic option most consistently documented across
+    the specific rust diseases in this corpus, applied before pustules
+    erupt.
+  chemical: >
+    Myclobutanil or propiconazole are the active ingredients most
+    consistently documented for rust diseases in this corpus, applied at
+    first sign of upper-leaf flecking, before pustules break through the
+    underside -- fungicides will not cure existing pustules.
+  prevention: >
+    Avoid overhead watering and inspect new stock for pustules before
+    introducing it to a bed or field.
+  sources:
+    - title: "Rose Diseases | Home & Garden Information Center (Clemson HGIC)"
+      url: "https://hgic.clemson.edu/factsheet/rose-diseases/"
+
+generic_blight:
+  common_name: Blight (unspecified)
+  cultural: >
+    Remove and destroy affected tissue promptly -- blights documented in
+    this corpus (early/late blight, bacterial spot, black rot) spread fast
+    under warm or wet conditions -- and avoid working among wet plants,
+    which moves spores or bacteria on hands and tools.
+  organic: >
+    Copper-based products are the organic-approved option most consistently
+    documented across blight-type diseases in this corpus, applied
+    preventively ahead of forecast favorable weather.
+  chemical: >
+    Chlorothalonil or mancozeb on a short 5-10 day schedule through the
+    outbreak period is typical for fungal blights; switch to a systemic or
+    oomycete-specific product once the exact pathogen is identified.
+  prevention: >
+    Improve airflow, avoid overhead irrigation, and rotate plantings
+    season to season in beds/fields with a history of blight.
+  sources:
+    - title: "Tomato Diseases & Disorders | Home & Garden Information Center (Clemson HGIC)"
+      url: "https://hgic.clemson.edu/factsheet/tomato-diseases-disorders/"
+
+rose_pest_damage:
+  common_name: Rose insect feeding damage
+  cultural: >
+    The keys to avoiding pest problems are careful variety selection,
+    appropriate cultural practices, and occasional handpicking or water
+    sprays. Aphids can be hosed off with a strong stream of water directed
+    above and below the leaves, repeated as often as needed and focused on
+    new growth.
+  organic: >
+    Insecticidal soap controls aphids but must be sprayed directly onto
+    them to be effective. Avoid broad-spectrum insecticides where possible,
+    since they kill the natural enemies (e.g. predatory insects) that
+    otherwise keep spider mites in check.
+  chemical: >
+    Spinosad is a relatively new microbial insecticide effective against
+    most caterpillar pests, sawfly larvae, and is one of the better
+    treatments for thrips, especially western flower thrips.
+  prevention: >
+    Regularly monitor for pests and watch for rising natural-enemy
+    populations, which often rapidly reduce aphid and mite numbers on their
+    own.
+  sources:
+    - title: "Roses: Insects and Mites, Pest Notes Publication 7466 (UC IPM)"
+      url: "https://ipm.ucanr.edu/PMG/PESTNOTES/pn7466.html"
+
+marigold_leaf_blight:
+  common_name: Marigold Alternaria leaf blight
+  cultural: >
+    Water early in the day so foliage dries before nightfall, and remove
+    affected leaves promptly -- Alternaria tagetica causes blight of leaves,
+    stems, and flowers with dark-brown necrotic spots, often surrounded by
+    a chlorotic halo.
+  organic: >
+    Sanitation (prompt removal of affected leaves and plant debris) is the
+    primary organic-compatible control documented for this disease. Indian
+    research on the closely related Alternaria flower blight (a major
+    problem in marigold grown for festival/religious use in states like
+    Odisha, with reported yield losses of 50-60%) found garlic extract
+    (Allium sativum, 10% concentration) inhibited fungal growth by nearly
+    78% in lab trials, ahead of amla (Phyllanthus emblica) and turmeric
+    (Curcuma longa) -- low-cost, locally available options for Indian
+    growers.
+  chemical: >
+    Compounds registered for Alternaria on ornamentals include
+    chlorothalonil, thiophanate-methyl, copper compounds, and mancozeb.
+    Indian trials on the related flower-blight form of this disease used
+    Dithane M-45 (mancozeb, 0.2%) or carbendazim (0.05%) sprays at regular
+    intervals.
+  prevention: >
+    Rotate plantings away from beds with a history of the disease and avoid
+    late-day overhead watering that leaves foliage wet overnight.
+  sources:
+    - title: "Marigold - Alternaria Leaf Spot and Flower Blight (UMass Amherst CAFE)"
+      url: "https://ag.umass.edu/greenhouse-floriculture/photos/marigold-alternaria-leaf-spot-flower-blight"
+    - title: "Marigold (Tagetes) | Connecticut Agricultural Experiment Station Plant Pest Handbook"
+      url: "https://portal.ct.gov/CAES/Plant-Pest-Handbook/pphM/Marigold-Tagetes"
+    - title: "Disease control in Marigold (Tagetes erecta) -- Alternaria zinniae flower blight, India (ResearchGate)"
+      url: "https://www.researchgate.net/publication/384246379_Disease_control_in_Marigold_Tagetes_erecta"
+
+marigold_pest_damage:
+  common_name: Marigold insect feeding damage
+  cultural: >
+    Common pests include aphids, caterpillars, whiteflies, spider mites,
+    thrips, slugs and leafminers; spider mites are worst in hot, dry
+    weather. Identify the pest before choosing a control, since damage
+    patterns and treatments differ.
+  organic: >
+    Combat spider mites and thrips with horticultural oils, insecticidal
+    soaps, or a strong burst of water from a hose; neem oil and Bacillus
+    thuringiensis are documented as safe, sustainable options.
+  chemical: >
+    A targeted insecticide or miticide matched to the identified pest is
+    recommended over a broad-spectrum product applied without
+    identification.
+  prevention: >
+    An integrated approach customised to the specific pest pressures in a
+    given setting, combining biological, cultural, and targeted chemical
+    controls, gives the most durable results.
+  sources:
+    - title: "Marigold (UC IPM)"
+      url: "https://ipm.ucanr.edu/PMG/GARDEN/FLOWERS/marigold.html"
+
+tomato_early_blight:
+  common_name: Tomato early blight
+  cultural: >
+    Use resistant or tolerant cultivars, space plants to prevent contact,
+    mulch, fertilize properly, don't wet foliage with irrigation water,
+    remove infected lower branches, and maintain plant vigor.
+  organic: >
+    Resistant cultivars, crop rotation, and sanitation are the documented
+    organic-compatible controls.
+  chemical: >
+    Mancozeb gives very good control; chlorothalonil or copper give good
+    control.
+  prevention: >
+    Use only clean or certified seed, remove/destroy crop residue at
+    season end, and rotate to non-susceptible crops for at least 2-3 years
+    where the disease has recurred.
+  sources:
+    - title: "Tomato Diseases & Disorders | Home & Garden Information Center (Clemson HGIC)"
+      url: "https://hgic.clemson.edu/factsheet/tomato-diseases-disorders/"
+
+tomato_late_blight:
+  common_name: Tomato late blight
+  cultural: >
+    Keep foliage dry, locate the garden for morning sun exposure, increase
+    plant spacing, and avoid overhead watering (especially late in the
+    day). Remove diseased plants immediately -- this disease can destroy a
+    planting within days in cool, wet weather.
+  organic: >
+    Use certified disease-free seed/plants, destroy volunteer plants, and
+    grow resistant cultivars where available; copper has shown some
+    preventive effect but is far less effective than conventional
+    fungicides and does not stop the disease once established. ICAR field
+    trials across open-field, rain-shelter and tunnel production in India
+    found copper oxychloride at 0.25% gave the best yields among organic-
+    compatible options, making it usable under India's organic-certification
+    rules.
+  chemical: >
+    Chlorothalonil gives very good control as a protectant; copper and
+    mancozeb give good control. This is an oomycete, not a true fungus, so
+    oomycete-specific curatives (mefenoxam, mandipropamid) are more
+    effective once infection is suspected. Apply before infection, when
+    conditions favor disease -- local forecasting/disease-forecast programs
+    help time this. In India, ICAR-KVK Kolar tested an integrated module of
+    Trichoderma harzianum + Pseudomonas fluorescens soil application before
+    transplanting, followed by prophylactic mancozeb and curative
+    metalaxyl+mancozeb, fosetyl-Al, or dimethomorph sprays.
+  prevention: >
+    Focus on avoidance: certified seed, destroying volunteer plants, and
+    monitoring disease-forecasting programs, since reactive spraying alone
+    moves too slowly for this pathogen. ICAR-CPRI's INDO-BLIGHTCAST is a
+    pan-India web-based forecasting tool for this disease, useful for
+    timing sprays regionally within India.
+  sources:
+    - title: "Tomato Diseases & Disorders | Home & Garden Information Center (Clemson HGIC)"
+      url: "https://hgic.clemson.edu/factsheet/tomato-diseases-disorders/"
+    - title: "Bulletin #5087, Early Blight of Potatoes and Tomatoes (University of Maine Cooperative Extension)"
+      url: "https://extension.umaine.edu/ipm/ipddl/publications/5087e/"
+    - title: "Eco-friendly management of tomato late blight using botanicals, bio-control agents, compost tea and copper fungicides (Indian Journal of Agricultural Sciences, ICAR)"
+      url: "https://epubs.icar.org.in/index.php/IJAgS/article/view/98525"
+    - title: "Late blight disease of tomato: a serious problem for Indian tomato farmers (Indian Horticulture, ICAR)"
+      url: "https://epubs.icar.org.in/index.php/IndHort/article/view/164935"
+
+tomato_leaf_mold:
+  common_name: Tomato leaf mold
+  cultural: >
+    Remove crop residue, stake and prune, space plants for air circulation,
+    and avoid wetting leaves -- staking and pruning to increase air
+    circulation is specifically called out as helping control this disease.
+  organic: >
+    Resistant cultivars and crop rotation are the documented
+    organic-compatible controls.
+  chemical: >
+    Chlorothalonil, mancozeb, or copper applied preventatively are the
+    documented options.
+  prevention: >
+    This disease thrives in high humidity, especially in greenhouses --
+    ventilation and humidity control matter more than any single fungicide
+    choice.
+  sources:
+    - title: "Tomato Diseases & Disorders | Home & Garden Information Center (Clemson HGIC)"
+      url: "https://hgic.clemson.edu/factsheet/tomato-diseases-disorders/"
+
+tomato_septoria_leaf_spot:
+  common_name: Tomato Septoria leaf spot
+  cultural: >
+    Rotate crops for at least 3 years, avoid overhead irrigation, remove
+    crop debris, and prune for air circulation. Infection usually starts on
+    lower leaves near the ground after fruit set.
+  organic: >
+    Resistant cultivars and sanitation practices are the documented
+    organic-compatible controls.
+  chemical: >
+    Chlorothalonil gives very good control; copper and mancozeb give good
+    control. Repeated fungicide applications keep the disease in check once
+    it appears.
+  prevention: >
+    Do not use overhead irrigation, and rotate out of tomato beds for at
+    least 1-2 years where the disease has recurred.
+  sources:
+    - title: "Tomato Diseases & Disorders | Home & Garden Information Center (Clemson HGIC)"
+      url: "https://hgic.clemson.edu/factsheet/tomato-diseases-disorders/"
+    - title: "Early Blight and Septoria Leaf Spot of Tomato (Cornell, via Maine DACF)"
+      url: "https://www.maine.gov/dacf/php/gotpests/diseases/factsheets/early-blight-and-septoria-cornell.pdf"
+
+tomato_target_spot:
+  common_name: Tomato target spot
+  cultural: >
+    Rotate tomato fields with non-solanaceous crops, start with clean and
+    healthy transplants, and eliminate weeds and volunteer plants -- the
+    fungus (Corynespora cassiicola) can survive on debris (even soybean
+    debris) for extended periods. Maintain proper spacing and air
+    circulation, since disease develops fastest in dense inner canopies
+    where moisture persists.
+  organic: >
+    No organic-specific fungicide is documented; sanitation and rotation
+    are the primary non-chemical controls, and there is no varietal
+    resistance currently available for this disease.
+  chemical: >
+    The primary approach is timely, preventive fungicide use. Documented
+    effective active ingredients include chlorothalonil, azoxystrobin,
+    pyraclostrobin, boscalid, mancozeb, benzovindiflupyr, difenoconazole,
+    and others (consult current regional fungicide labels, since
+    fungicide-resistant isolates can persist in diseased tissue between
+    seasons).
+  prevention: >
+    Long-term management requires an integrated program of cultural and
+    chemical strategies together, since resistant isolates can carry over
+    season to season.
+  sources:
+    - title: "Target Spot of Tomato in Florida (UF/IFAS EDIS PP351)"
+      url: "https://ask.ifas.ufl.edu/publication/PP351"
+
+tomato_spider_mite_damage:
+  common_name: Tomato spider mite damage
+  cultural: >
+    Spider mites have many natural predators, so avoiding broad-spectrum
+    insecticides that kill those predators is a core management principle.
+    Complete spray coverage, especially leaf undersides, is essential, and
+    weekly inspection of leaf undersides with a hand lens helps catch
+    infestations early.
+  organic: >
+    Neem oil, narrow-range horticultural oils, and insecticidal soap
+    (potassium salts of fatty acids) are acceptable for organic production
+    and are typically the first effective choice -- they coat the mite's
+    exoskeleton, causing suffocation.
+  chemical: >
+    A dedicated miticide (acaricide), not a general insecticide, is
+    required for chemical control; if establishing predatory mites (e.g.
+    Phytoseiulus persimilis) in a heavily infested area, use a soap spray or
+    selective miticide first to reduce pest numbers before releasing them.
+  prevention: >
+    Regular monitoring (weekly, with a hand lens on leaf undersides) allows
+    intervention before populations require chemical control.
+  sources:
+    - title: "Spider Mites (UC IPM Home and Landscape)"
+      url: "https://ipm.ucanr.edu/home-and-landscape/spider-mites/"
+    - title: "Twospotted Spider Mite, Floriculture and Ornamental Nurseries (UC IPM Agriculture)"
+      url: "https://ipm.ucanr.edu/agriculture/floriculture-and-ornamental-nurseries/twospotted-spider-mite/"
+
+tomato_mosaic_virus:
+  common_name: Tomato mosaic virus
+  cultural: >
+    Eliminate weeds, wash hands after smoking (the virus spreads readily on
+    tobacco products), and remove and destroy infected plants promptly;
+    rotate with non-solanaceous crops such as crucifers.
+  organic: >
+    Virus-resistant cultivars (marked "T" for tobacco mosaic resistance)
+    and reflective mulches are the documented organic-compatible measures.
+  chemical: >
+    There are no chemical controls for viruses -- remove and destroy
+    infected plants promptly instead.
+  prevention: >
+    Plant resistant/tolerant varieties, disinfect tools and hands between
+    plants, and control the mechanical spread that this virus depends on.
+  sources:
+    - title: "Tomato Diseases & Disorders | Home & Garden Information Center (Clemson HGIC)"
+      url: "https://hgic.clemson.edu/factsheet/tomato-diseases-disorders/"
+
+tomato_yellow_leaf_curl_virus:
+  common_name: Tomato yellow leaf curl virus
+  cultural: >
+    Remove symptomatic plants immediately, bagging them to prevent whitefly
+    (the vector) from spreading further, and control weeds that serve as
+    alternate hosts.
+  organic: >
+    Low-concentration sprays of horticultural or canola oil (0.25-0.5%)
+    act as a whitefly repellent; reflective mulches also disrupt whitefly
+    landing behavior.
+  chemical: >
+    There are no curative chemical options for the virus itself; a
+    systemic insecticide targeted at the whitefly vector reduces spread
+    risk, and insecticide classes should be rotated to slow resistance in
+    the whitefly population.
+  prevention: >
+    Use insect netting on young transplants, control whitefly populations
+    before planting, and plant resistant varieties where available.
+  sources:
+    - title: "Tomato Diseases & Disorders | Home & Garden Information Center (Clemson HGIC)"
+      url: "https://hgic.clemson.edu/factsheet/tomato-diseases-disorders/"
+
+potato_early_blight:
+  common_name: Potato early blight
+  cultural: >
+    Use only clean seed saved from disease-free plants or certified seed
+    potatoes. Remove and destroy crop residue at season end, or plow it
+    into the soil to promote breakdown.
+  organic: >
+    Crop rotation to non-susceptible crops (small grains or brassicas) for
+    3 years, and moderately resistant varieties (e.g. Russet Burbank,
+    Lamoka, Snowden, Lehigh, Ranger Russet, Elba) are the documented
+    organic-compatible controls.
+  chemical: >
+    Preventive fungicide applications, timed before infection when
+    conditions favor disease, are standard; see current regional labels for
+    active ingredients.
+  prevention: >
+    Certified seed and residue management are the two most consistently
+    documented preventive practices.
+  sources:
+    - title: "Bulletin #5087, Early Blight of Potatoes and Tomatoes (University of Maine Cooperative Extension)"
+      url: "https://extension.umaine.edu/ipm/ipddl/publications/5087e/"
+
+potato_late_blight:
+  common_name: Potato late blight
+  cultural: >
+    Use high-quality, certified seed potatoes, and destroy all volunteer
+    potato plants -- this is the pathogen behind historic famine-scale crop
+    loss and can destroy a field within days in cool, wet weather.
+  organic: >
+    Copper has shown some preventive effect but is far less effective than
+    conventional fungicides and cannot stop the disease once it begins
+    developing.
+  chemical: >
+    Management focuses on avoidance and prevention -- fungicide
+    applications made before infection, timed using local weather
+    forecasts and disease-forecasting programs, are far more effective than
+    reactive spraying. A four-spray protocol validated by ICAR in the humid
+    north-eastern Himalayan region of India alternates a protectant with a
+    systemic+contact combination: mancozeb 0.25% at 35 and 49 days after
+    sowing, cymoxanil+mancozeb 0.25% at 42 and 56 days after sowing --
+    reported to cut disease severity to roughly 7-11% and raise yield by
+    ~27% over untreated plots in that trial.
+  prevention: >
+    Certified disease-free seed potatoes and destroying volunteer plants
+    and cull piles (which can carry the pathogen between seasons) are the
+    most consistently documented preventive measures. ICAR-CPRI's
+    INDO-BLIGHTCAST is a pan-India web-based forecasting tool for timing
+    sprays regionally within India.
+  sources:
+    - title: "Control Strategies for Late Blight in the Alaska Potato Crop (University of Alaska Fairbanks Cooperative Extension)"
+      url: "https://www.uaf.edu/ces/publications/database/gardening/control-strategy-late-blight.php"
+    - title: "Integrated Management of Late Blight in Potatoes (Manitoba Agriculture)"
+      url: "https://www.gov.mb.ca/agriculture/crops/plant-diseases/mgmt-late-blight-potatoes.html"
+    - title: "Management of late blight of potato through efficient spray schedule of fungicides in the north-eastern Himalayan region of India (Indian Journal of Agricultural Sciences, ICAR)"
+      url: "https://epubs.icar.org.in/index.php/IJAgS/article/view/147373"
+
+pepper_bacterial_spot:
+  common_name: Pepper bacterial spot
+  cultural: >
+    Select and purchase the highest quality, disease-free certified seed
+    from a reputable dealer (request certification documentation).
+    Transplant producers should remove all plant material from the
+    greenhouse between crops, clean and disinfect equipment/pots/trays, and
+    avoid contact between seedlings from different seed lots. Rotate fields
+    to a non-solanaceous crop (e.g. squash, corn, greens) for at least a
+    year, and use drip rather than overhead irrigation.
+  organic: >
+    Sanitation and certified seed are the primary organic-compatible
+    controls; alternative seed sanitization methods (hot water, bleach,
+    hydrochloric acid) exist, with bleach being most effective.
+  chemical: >
+    Tank-mixing a copper product with mancozeb increases the bactericidal
+    effect of copper, but copper resistance has emerged widely in the
+    pathogen population and has rendered copper-alone spray programs
+    largely ineffective. Acibenzolar-S-methyl (an SAR product, e.g. Actigard)
+    is used as a supplemental approach that stimulates the plant's own
+    defenses.
+  prevention: >
+    Host resistance is a critical IPM component -- eight resistance genes
+    have been identified and incorporated into commercial pepper cultivars.
+  sources:
+    - title: "Bacterial Spot of Tomato and Pepper (Alabama Cooperative Extension System)"
+      url: "https://www.aces.edu/blog/topics/crop-production/bacterial-spot-of-tomato-and-pepper/"
+
+apple_scab:
+  common_name: Apple scab
+  cultural: >
+    Sanitation targets overwintered inoculum: sweep and grind leaves on the
+    orchard floor with mowers/flail choppers before bud break in spring, or
+    rake and remove/destroy/compost leaves in autumn or winter. As an
+    alternative, a 5% urea spray on trees just before fall leaf drop, or
+    onto the orchard floor after leaf drop, also reduces overwintering
+    spores.
+  organic: >
+    Sanitation (leaf removal/destruction) is the primary organic-compatible
+    control; copper is used on other rose-family diseases similarly.
+  chemical: >
+    Captan, chlorothalonil, and mancozeb are documented active ingredients;
+    myclobutanil, propiconazole, or thiophanate-methyl should be alternated
+    with other classes. A captan + EBDC tank-mix is an excellent
+    combination, reapplied at 7-14 day intervals through wet weather.
+    Caution: mixing captan with oil or petroleum-based carriers can damage
+    fruit and foliage; minimize captan use from petal fall through first
+    cover.
+  prevention: >
+    Sanitation of overwintered leaf litter is the single most emphasized
+    preventive practice across sources.
+  sources:
+    - title: "Strategies to Manage Apple Scab (Wisconsin Horticulture / UW-Madison Extension)"
+      url: "https://hort.extension.wisc.edu/strategies-to-manage-apple-scab/"
+
+apple_black_rot:
+  common_name: Apple black rot (frogeye leaf spot)
+  cultural: >
+    Prune and remove cankers at least 15 inches below the basal end, and
+    remove all mummified fruit -- the fungus (Botryosphaeria obtusa)
+    overwinters in cankers, mummified fruit, and dead bark. Prunings should
+    not be chopped and left in the orchard, since the fungus rapidly
+    colonizes dead bark and creates future inoculum.
+  organic: >
+    Sanitation (canker and mummy removal) is the primary organic-compatible
+    control; a season-long fungicide program is only needed where the
+    disease has been problematic.
+  chemical: >
+    Captan, ziram, and strobilurin-class products (e.g. Flint 50WG,
+    Merivon, Luna Sensation, Pristine) are documented for a season-long
+    program where needed.
+  prevention: >
+    Removing cankers and mummified fruit every winter without exception is
+    the most consistently emphasized preventive measure.
+  sources:
+    - title: "Frogeye Leaf Spot and Black Rot on Apple (UNH Extension)"
+      url: "https://extension.unh.edu/resource/frogeye-leaf-spot-black-rot-apple-0"
+    - title: "Pome Fruit Disease - Black Rot and Frogeye Leaf Spot (Penn State Extension)"
+      url: "https://extension.psu.edu/apple-disease-black-rot-and-frogeye-leaf-spot"
+
+apple_cedar_apple_rust:
+  common_name: Cedar-apple rust
+  cultural: >
+    Spores can travel up to two miles, so separating apple from
+    juniper/cedar hosts is often impractical; instead, prune rust galls out
+    of small cedars/junipers in late winter or early spring (by April 1).
+    Resistant apple varieties (e.g. Redfree, Liberty, William's Pride,
+    Freedom) and resistant crabapples are the preferred long-term approach.
+  organic: >
+    Sulfur is a standard organic option, though this disease is rarely
+    managed with fungicides at all -- targeting the alternate juniper host
+    is the primary organic-compatible control.
+  chemical: >
+    Myclobutanil is very effective for control of both apple scab and
+    cedar-apple rust; sprays are applied in spring at the pink and
+    petal-fall stages of flowering, since most basidiospores release from
+    galls between early pink and full bloom.
+  prevention: >
+    Only preventive fungicide application is effective; resistant variety
+    selection reduces the need for spraying altogether.
+  sources:
+    - title: "Cedar-Apple Rust (Iowa State University Yard and Garden)"
+      url: "https://yardandgarden.extension.iastate.edu/encyclopedia/cedar-apple-rust"
+    - title: "cedar-apple rust Gymnosporangium juniperi-virginianae (Kansas State University Extension)"
+      url: "https://hnr.k-state.edu/extension/horticulture-resource-center/common-pest-problems/documents/Cedar-Apple%20Rust%20for%20Apples.pdf"
+
+cherry_powdery_mildew:
+  common_name: Cherry powdery mildew
+  cultural: >
+    A well-pruned canopy promotes airflow and leaf drying, reducing humid
+    conditions favorable to disease, and also improves spray coverage.
+    Remove root suckers -- they are highly susceptible tissue that sprays
+    often cannot reach. Delaying spring irrigation by two weeks delayed
+    disease initiation by two weeks with no negative impact on fruit in
+    trials.
+  organic: >
+    Sulfur and potassium bicarbonate are documented organic options for
+    powdery mildew generally; no organic-specific option is documented in
+    the cherry-specific source, which focuses on conventional fungicides.
+  chemical: >
+    Most synthetic fungicides are preventive, not eradicative -- spray soon
+    after petal fall and again 2-3 weeks later if needed, continuing from
+    shuck fall through harvest. Fluopyram/trifloxystrobin was the only
+    combination shown effective at lowering incidence and severity in
+    recent trials; note that over half of tested isolates have developed
+    DMI (Group 3) resistance, so rotate fungicide groups.
+  prevention: >
+    Canopy management (pruning, sucker removal) plus correctly timed
+    preventive sprays are more effective than reactive treatment after
+    symptoms appear.
+  sources:
+    - title: "Cherry Powdery Mildew (Washington State University Tree Fruit)"
+      url: "https://treefruit.wsu.edu/crop-protection/disease-management/cherry-powdery-mildew/"
+    - title: "Current Status of the Powdery Mildew Fungicide Toolbox in Cherries (WSU Tree Fruit)"
+      url: "https://treefruit.wsu.edu/article/current-status-of-the-powdery-mildew-fungicide-toolbox-in-cherries/"
+
+peach_bacterial_spot:
+  common_name: Peach bacterial spot
+  cultural: >
+    The pathogen (Xanthomonas arboricola pv. pruni) overwinters in twigs,
+    forming spring cankers that generate primary inoculum. Copper acts as a
+    protectant and must be present on tissue before bacteria arrive --
+    apply on a 7-day interval for the most consistent control, avoiding
+    application in cool, slow-drying conditions, which promotes movement
+    into plant tissue and worsens phytotoxicity.
+  organic: >
+    Fixed copper-based bactericides (e.g. Kocide 3000, Badge X2, Nordox,
+    Champ, COC) are the main organic-approved option, but copper is
+    phytotoxic to peach foliage -- defoliation increases with application
+    rate and frequency (documented up to 10-17% on 'Encore', 30-35% on
+    'Redgold' nectarine).
+  chemical: >
+    Fixed copper is commonly combined or alternated with oxytetracycline to
+    manage resistance, reduce phytotoxicity, and lower cost; use optimal
+    spray volume (~100 gal/acre for air-blast sprayers), small-particle-size
+    copper (~1-2 microns), and spray water pH >= 6.0, since lower pH
+    solubilizes copper and increases foliar injury. Copper-tolerant and
+    oxytetracycline-resistant strains have been reported.
+  prevention: >
+    Avoid tank-mixing copper with acidic products, and alternate
+    bactericide classes to slow resistance development.
+  sources:
+    - title: "Do's and Don'ts for Using Copper to Control Peach Bacterial Spot (Rutgers Plant & Pest Advisory)"
+      url: "https://plant-pest-advisory.rutgers.edu/dos-and-donts-for-using-copper-to-control-peach-bacterial-spot/"
+    - title: "Copper Tolerance in Xanthomonas arboricola pv. pruni in South Carolina Peach Orchards (Plant Disease journal)"
+      url: "https://apsjournals.apsnet.org/doi/10.1094/PDIS-05-21-1114-RE"
+
+grape_black_rot:
+  common_name: Grape black rot
+  cultural: >
+    Remove, burn, and/or bury infected prunings and mummified berries
+    before new growth begins in spring -- the pathogen overwinters in
+    diseased fruit clusters and cane lesions.
+  organic: >
+    Planting resistant varieties is strongly suggested as a foundational,
+    non-chemical control.
+  chemical: >
+    Early-season fungicide sprays should be timed to prevent the earliest
+    infections; the critical application window is from mid-bloom until
+    berries begin coloring, since mature leaves and ripe fruit are
+    naturally resistant.
+  prevention: >
+    Sanitation (removing overwintering inoculum) combined with resistant
+    varieties is the most consistently documented preventive combination.
+  sources:
+    - title: "Grape Disease - Black Rot (Penn State Extension)"
+      url: "https://extension.psu.edu/grape-disease-black-rot"
+    - title: "Black Rot of Grapes (eXtension)"
+      url: "https://articles.extension.org/pages/31134/black-rot-of-grapes"
+
+grape_esca:
+  common_name: Grape esca (black measles / Petri disease)
+  cultural: >
+    Esca establishes through pruning wounds during fall-to-spring rainfall;
+    wounds remain susceptible for several weeks after pruning. Once a wound
+    is infected, the pathogen establishes a permanent, localized wood
+    infection that cannot be eradicated with fungicides.
+  organic: >
+    No organic spray is documented as curative for established esca; wound
+    protection at the time of pruning is the primary non-chemical
+    intervention available.
+  chemical: >
+    Pruning-wound sealants/paints (e.g. B-Lock, Spur Shield, Vitiseal)
+    applied within 24 hours of cutting are effective; there is no
+    fungicide that cures wood already infected.
+  prevention: >
+    When making large cuts during wet weather, leave a stub several inches
+    long to be pruned back later during dry weather ("delayed" or "double"
+    pruning) to reduce infection risk.
+  sources:
+    - title: "Esca (Black Measles) (UC IPM Agriculture: Grape)"
+      url: "https://ipm.ucanr.edu/agriculture/grape/esca-black-measles/"
+    - title: "Grape (Vitis spp.) — Esca, Young Esca, and Petri Disease (Pacific Northwest Pest Management Handbooks)"
+      url: "https://pnwhandbooks.org/plantdisease/host-disease/grape-vitis-spp-esca-young-esca-petri-disease"
+
+grape_leaf_blight:
+  common_name: Grape leaf blight (Isariopsis)
+  cultural: >
+    Cultural practices that increase air circulation -- shoot positioning
+    and thinning -- aid management of this disease (Pseudocercospora
+    vitis, formerly Isariopsis clavispora); it is most common late in the
+    season on poorly sprayed vines.
+  organic: >
+    Copper oxychloride applied on a fortnightly rotation from flowering
+    through about 18 weeks after budburst is a documented organic-compatible
+    option.
+  chemical: >
+    Mancozeb, chlorothalonil, difenoconazole, and a methiram + pyraclostrobin
+    mixture each showed control efficacy above 80% versus untreated in
+    field studies; a standard vineyard spray program usually controls this
+    disease without extra intervention.
+  prevention: >
+    Canopy management (shoot positioning, thinning) for airflow is
+    documented as an effective non-chemical measure.
+  sources:
+    - title: "Leaf blight (Isariopsis leaf spot) on Grape (Bugwood/invasive.org)"
+      url: "https://www.invasive.org/collections/viewcollection.cfm?ser=72222"
+
+strawberry_leaf_scorch:
+  common_name: Strawberry leaf scorch
+  cultural: >
+    Plant in a sunny, open location on a berm or raised soil mound, avoid
+    crowding plants, and control nearby weeds. Remove all strawberry plant
+    debris from the site at season end, and grow as an annual where
+    possible so the fungus (Diplocarpon earlianum) cannot persist between
+    seasons.
+  organic: >
+    Seek resistant varieties (e.g. Allstar, Earliglow, Jewell are resistant;
+    Honeoye is tolerant) where leaf scorch has been a problem, and use
+    drip/furrow irrigation instead of overhead sprinkling, irrigating in
+    the morning so foliage dries quickly.
+  chemical: >
+    Thiophanate-methyl is the fungicide specifically documented, sprayed to
+    thoroughly cover plants beginning at bloom; repeat at 2-week intervals
+    if wet conditions persist. Fungicide works best combined with cultural
+    controls, not alone.
+  prevention: >
+    Apply nitrogen fertilizer only at renovation to avoid excess succulent
+    new growth, which is more susceptible; frequent renewal of plantings
+    also helps, since scorch is usually less severe in the first two years.
+  sources:
+    - title: "Leaf Scorch of Strawberries (UC IPM Home and Landscape)"
+      url: "https://ipm.ucanr.edu/home-and-landscape/leaf-scorch-of-strawberries/"
+    - title: "Protect strawberries from foliar diseases after renovation (Michigan State University Extension)"
+      url: "https://www.canr.msu.edu/news/protect_strawberries_from_foliar_diseases_after_renovation"
+
+squash_powdery_mildew:
+  common_name: Squash powdery mildew
+  cultural: >
+    The pathogen (Podosphaera xanthii) develops best on lower leaf
+    surfaces, so successful management requires controlling it on both
+    surfaces, not just the upper canopy.
+  organic: >
+    Bicarbonates registered for powdery mildew are a documented
+    organic-compatible option.
+  chemical: >
+    Begin applying fungicides as soon as symptoms are seen and continue
+    weekly; demethylation-inhibiting (Group 3) fungicides are standard, and
+    Vivando (a different mode of action, resistance group U8) is a newer
+    option -- alternate or tank-mix with a non-Group-3 product for
+    resistance management, since resistant-variety suppression has been
+    declining as the pathogen adapts.
+  prevention: >
+    Resistant squash/pumpkin varieties (carrying a major resistance gene
+    from a wild cucurbit) provide useful, though variable, suppression --
+    combine with fungicides rather than relying on either alone.
+  sources:
+    - title: "Managing Cucurbit Powdery Mildew Conventionally – Key Points for Success (Cornell Vegetables)"
+      url: "https://www.vegetables.cornell.edu/pest-management/disease-factsheets/cucurbit-powdery-mildew/managing-cucurbit-powdery-mildew-conventionally-key-points-for-success/"
+
+maize_gray_leaf_spot:
+  common_name: Maize gray leaf spot
+  cultural: >
+    Cropping systems with reduced- or no-till and/or continuous corn are at
+    higher risk for outbreaks, since the fungus survives in surface
+    residue.
+  organic: >
+    Planting hybrids with genetic resistance to gray leaf spot is the
+    primary organic-compatible control documented; rotation away from
+    continuous corn reduces residue-borne inoculum.
+  chemical: >
+    Foliar fungicides are available and typically applied around tasseling
+    in high-pressure years, particularly under reduced tillage with heavy
+    residue.
+  prevention: >
+    Resistant hybrids combined with crop rotation and residue management
+    are the most consistently documented preventive combination.
+  sources:
+    - title: "Gray leaf spot on corn (UMN Extension, aggregated via search)"
+      url: "https://extension.umn.edu/corn-pest-management/gray-leaf-spot-corn"
+
+maize_common_rust:
+  common_name: Maize common rust
+  cultural: >
+    Common rust (Puccinia sorghi) is found throughout most corn-growing
+    states but usually causes little to no economic loss -- monitor
+    severity before investing in a spray.
+  organic: >
+    Selecting hybrids with good documented disease tolerance is the primary
+    organic-compatible control; note that only about 40% of seed companies
+    evaluate hybrid reactions to common rust specifically.
+  chemical: >
+    A fungicide application (roughly $23-27/acre) is warranted mainly
+    under high pressure; trial-based thresholds range from under 15%
+    severity (Illinois sweet corn) to about 1% severity / six pustules per
+    leaf (New York sweet corn) before treatment is justified.
+  prevention: >
+    Resistant hybrid selection is the most effective and most widely
+    practiced control, since fungicide use is rarely economically
+    justified for this disease.
+  sources:
+    - title: "Corn Diseases (University of Arkansas Cooperative Extension, aggregated)"
+      url: "https://www.uaex.uada.edu/farm-ranch/pest-management/plant-disease/corn.aspx"
+
+maize_northern_leaf_blight:
+  common_name: Maize northern leaf blight
+  cultural: >
+    The fungus (Exserohilum turcicum) survives in corn residue --
+    continuous corn and conservation tillage increase risk, though since
+    spores also travel by wind between fields, rotation and residue
+    management alone are not sufficient.
+  organic: >
+    Hybrids with partial (non-race-specific) resistance, or race-specific
+    Ht genes (Ht1, Ht2, Ht3, HtN), are the primary organic-compatible
+    control; consult local extension specialists, since regional pathogen
+    race structure can shift.
+  chemical: >
+    Foliar fungicide timed at tasseling/silking (VT/R1) has been most
+    successful at reducing disease compared to untreated controls in
+    university studies; consult an annually updated regional fungicide
+    efficacy table for specific active ingredients.
+  prevention: >
+    Discuss NCLB resistance ratings with local seed dealers, since which
+    Ht genes are effective varies by region and local pathogen population.
+  sources:
+    - title: "An Overview of Northern Corn Leaf Blight (Crop Protection Network)"
+      url: "https://cropprotectionnetwork.org/publications/an-overview-of-northern-corn-leaf-blight"
+
+rose_nutrient_deficiency:
+  common_name: Rose nutrient deficiency
+  cultural: >
+    Confirm the pattern before treating: nitrogen deficiency shows as
+    yellowing on older leaves first, with possible leaf drop. Iron
+    deficiency (an immobile nutrient) appears on the youngest/upper leaves
+    first as interveinal chlorosis, worsening to very pale, small new
+    leaves if unaddressed; it is strongly pH-dependent -- the higher the
+    soil pH, the more severe. Magnesium deficiency (common in sandy soils)
+    shows on older leaves as cupping, reduced size, or interveinal
+    chlorosis.
+  organic: >
+    Epsom salts are a good source of supplemental magnesium for
+    magnesium-related chlorosis.
+  chemical: >
+    For iron chlorosis, soil amendments that acidify the soil (iron
+    sulfate or sulfur) are the best long-term solution, since iron is most
+    available in acidic soil (pH 4.5-6.0) and becomes chemically
+    unavailable above pH 6.5; foliar sprays of iron sulfate or chelated
+    iron give faster, if more temporary, relief. Ammonium sulfate
+    fertilizer also acidifies soil over time.
+  prevention: >
+    Test soil periodically rather than guessing at fertilizer needs, and
+    address drainage/root damage, which can worsen iron chlorosis symptoms.
+  sources:
+    - title: "Learn to Read the Leaves (American Rose Society)"
+      url: "https://rose.org/learn-to-read-the-leaves/"
+    - title: "Nutrient Deficiency of Trees and Shrubs (University of Maryland Extension)"
+      url: "https://extension.umd.edu/resource/nutrient-deficiency-trees-and-shrubs"
+
+hibiscus_nutrient_deficiency:
+  common_name: Hibiscus nutrient deficiency
+  cultural: >
+    Confirm the pattern before treating: interveinal yellowing on new
+    growth typically indicates iron deficiency, which is strongly
+    pH-dependent -- iron becomes chemically unavailable above roughly pH
+    6.5 even when present in the soil, which is common in hibiscus grown in
+    alkaline soil or over-limed potting mix.
+  organic: >
+    Compost top-dress addresses general nutrient deficiency; for iron
+    chlorosis specifically, soil acidification (iron sulfate or sulfur) is
+    the documented long-term organic-compatible correction.
+  chemical: >
+    Chelated iron applied as a soil drench, or foliar iron sulfate/chelated
+    iron sprays for faster (if more temporary) relief, are the documented
+    corrections for iron chlorosis.
+  prevention: >
+    Check and correct soil or potting-mix pH periodically -- hibiscus
+    prefers slightly acidic conditions, and high pH is the most commonly
+    documented root cause of apparent nutrient deficiency.
+  sources:
+    - title: "Nutrient Deficiency of Trees and Shrubs (University of Maryland Extension)"
+      url: "https://extension.umd.edu/resource/nutrient-deficiency-trees-and-shrubs"
+
+tomato_bacterial_spot:
+  common_name: Tomato bacterial spot
+  cultural: >
+    Select certified disease-free seed from a reputable dealer (the
+    bacterium is seed-borne). Transplant producers should remove all plant
+    material from the greenhouse between crops, disinfect equipment, and
+    avoid cross-contact between seed lots. Rotate fields to a
+    non-solanaceous crop for at least a year, and use drip rather than
+    overhead irrigation.
+  organic: >
+    Sanitation and certified seed sourcing are the primary
+    organic-compatible controls; seed can be sanitized with hot water,
+    bleach, or hydrochloric acid treatments.
+  chemical: >
+    Tank-mixing copper with mancozeb increases bactericidal effect, but
+    copper resistance has spread widely in the pathogen population and has
+    rendered copper-alone programs largely ineffective. Acibenzolar-S-methyl
+    (an SAR product) is a documented supplemental approach.
+  prevention: >
+    Host resistance (multiple resistance genes bred into commercial
+    cultivars) is a critical IPM component alongside sanitation.
+  sources:
+    - title: "Bacterial Spot of Tomato and Pepper (Alabama Cooperative Extension System)"
+      url: "https://www.aces.edu/blog/topics/crop-production/bacterial-spot-of-tomato-and-pepper/"
+
+# ----------------------------------------------------------- healthy states
+rose_healthy:
+  common_name: Healthy rose tissue
+  cultural: >
+    No treatment needed. Maintain a regular watering, feeding and pruning
+    schedule, and inspect foliage periodically for early signs of disease
+    or pest pressure so any issue is caught while still easy to manage.
+
+marigold_healthy:
+  common_name: Healthy marigold tissue
+  cultural: >
+    No treatment needed. Maintain regular watering and deadheading, and
+    monitor periodically for pests such as aphids or spider mites, which
+    marigold is otherwise fairly resistant to.
+
+hibiscus_healthy:
+  common_name: Healthy hibiscus tissue
+  cultural: >
+    No treatment needed. Maintain regular watering, check soil pH
+    periodically (hibiscus prefers slightly acidic conditions), and inspect
+    for early pest or disease signs.
+
+generic_healthy:
+  common_name: Healthy plant tissue
+  cultural: >
+    No treatment needed. Continue routine watering, feeding and
+    inspection appropriate to the species.
+
+apple_healthy:
+  common_name: Healthy apple tissue
+  cultural: >
+    No treatment needed. Maintain a routine preventive spray program
+    through bloom in regions with a history of scab or black rot, and
+    inspect fruit and foliage periodically.
+
+pepper_healthy:
+  common_name: Healthy pepper tissue
+  cultural: >
+    No treatment needed. Avoid overhead watering as routine good practice
+    against bacterial spot, and inspect foliage periodically.
+
+tomato_healthy:
+  common_name: Healthy tomato tissue
+  cultural: >
+    No treatment needed. Maintain staking/caging for airflow, avoid
+    overhead watering, and inspect lower leaves periodically -- most tomato
+    diseases start there.
+
+maize_healthy:
+  common_name: Healthy maize tissue
+  cultural: >
+    No treatment needed. Continue routine crop management; resistant
+    hybrid selection remains the best ongoing protection against the common
+    foliar diseases of maize.
+
+cherry_healthy:
+  common_name: Healthy cherry tissue
+  cultural: >
+    No treatment needed. Maintain airflow through pruning and avoid excess
+    nitrogen, which is otherwise the main risk factor for powdery mildew on
+    this species.
+
+potato_healthy:
+  common_name: Healthy potato tissue
+  cultural: >
+    No treatment needed. Use certified disease-free seed potatoes each
+    season and monitor closely during cool, wet weather when late blight
+    risk is highest.
+
+strawberry_healthy:
+  common_name: Healthy strawberry tissue
+  cultural: >
+    No treatment needed. Renovate beds after harvest by removing old
+    foliage as routine good practice, and inspect periodically through the
+    season.
+
+peach_healthy:
+  common_name: Healthy peach tissue
+  cultural: >
+    No treatment needed. Maintain a dormant and petal-fall copper
+    application as routine good practice against bacterial spot in
+    susceptible regions.
+
+grape_healthy:
+  common_name: Healthy grape tissue
+  cultural: >
+    No treatment needed. Maintain canopy management for airflow, protect
+    large pruning wounds promptly, and remove any mummified fruit at winter
+    pruning as routine good practice.
