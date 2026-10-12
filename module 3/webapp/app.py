@@ -410,6 +410,51 @@ def api_case_followup(case_id):
     return jsonify(cases_db.get_case(case_id))
 
 
+@app.route("/api/cases/<int:case_id>/comments", methods=["POST"])
+def api_case_comment(case_id):
+    """Adds a free-text comment/update to a case's timeline."""
+    body = request.get_json(force=True, silent=True) or {}
+    text = (body.get("text") or "").strip()
+    if not text:
+        return jsonify({"error": "missing 'text'"}), 400
+    update_id = cases_db.add_comment(case_id, text)
+    if update_id is None:
+        return jsonify({"error": f"no case with id {case_id}"}), 404
+    return jsonify(cases_db.get_case(case_id)), 201
+
+
+@app.route("/api/cases/<int:case_id>/ask", methods=["POST"])
+def api_case_ask(case_id):
+    """Asks a further question about an already-logged case. Re-runs the
+    Module 4 RAG pipeline against the case's disease and stores the Q&A as
+    a new timeline entry, so a farmer can keep asking as new symptoms show
+    up without losing the original diagnosis context."""
+    case = cases_db.get_case(case_id)
+    if not case:
+        return jsonify({"error": f"no case with id {case_id}"}), 404
+
+    body = request.get_json(force=True, silent=True) or {}
+    question = (body.get("question") or "").strip()
+    if not question:
+        return jsonify({"error": "missing 'question'"}), 400
+    language = body.get("language", case.get("language") or "en")
+    if language not in ("en", "hi"):
+        language = "en"
+
+    try:
+        result = rag_answer(case["disease"], query=question, k=4, encoder="minilm",
+                            gen_model="qwen1.5b", passages=TREATMENT_PASSAGES,
+                            emb=TREATMENT_EMB, confidence=None, language=language)
+    except KeyError as e:
+        return jsonify({"error": str(e)}), 404
+
+    cases_db.add_question(case_id, question, result["answer"])
+    return jsonify({
+        "case": cases_db.get_case(case_id),
+        "passages": result["passages"],
+    }), 201
+
+
 @app.route("/api/report")
 def api_report():
     """Bundles the real result files 09-12 wrote to disk, for the dashboard."""
