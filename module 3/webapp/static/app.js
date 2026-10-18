@@ -806,6 +806,27 @@
     msg.classList.toggle("is-error", !!isError);
   }
 
+  /* Ticks a "still working" message with elapsed seconds so a slow (RAG)
+     request reads as in-progress rather than stuck. Returns a stop function. */
+  function startWaitTicker(card, baseText, slowAfterSecs){
+    var msg = card.querySelector(".case-action-msg");
+    var start = Date.now();
+    function tick(){
+      var secs = Math.round((Date.now() - start) / 1000);
+      var extra = slowAfterSecs && secs >= slowAfterSecs
+        ? " &mdash; still working, this can take up to a minute on this device" : "";
+      msg.innerHTML = baseText + " (" + secs + "s)" + extra;
+      msg.classList.remove("is-error");
+    }
+    tick();
+    var id = setInterval(tick, 1000);
+    return function(){ clearInterval(id); };
+  }
+
+  function reenable(){
+    for(var i=0;i<arguments.length;i++) if(arguments[i]) arguments[i].disabled = false;
+  }
+
   function submitFollowup(caseId, result, card){
     fetch("/api/cases/"+caseId+"/followup", {
       method: "POST",
@@ -817,37 +838,44 @@
       renderCases();
     }).catch(function(err){
       setCaseMsg(card, "couldn't save that check-in: "+err, true);
+      card.querySelectorAll(".status-btn").forEach(function(b){b.disabled = false;});
     });
   }
 
-  function submitComment(caseId, text, card){
-    setCaseMsg(card, "Saving&hellip;");
+  function submitComment(caseId, text, card, input, btn){
+    var stop = startWaitTicker(card, "Saving");
     fetch("/api/cases/"+caseId+"/comments", {
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({text: text})
     }).then(function(r){return r.json();}).then(function(updated){
+      stop();
       var i = CASES_CACHE.findIndex(function(c){return c.id===updated.id;});
       if(i>=0) CASES_CACHE[i] = updated;
       renderCases();
     }).catch(function(err){
+      stop();
       setCaseMsg(card, "couldn't save that note: "+err, true);
+      reenable(input, btn);
     });
   }
 
-  function submitAsk(caseId, question, card){
-    setCaseMsg(card, "Asking&hellip;");
+  function submitAsk(caseId, question, card, input, btn){
+    var stop = startWaitTicker(card, "Getting your answer", 8);
     fetch("/api/cases/"+caseId+"/ask", {
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({question: question})
     }).then(function(r){return r.json();}).then(function(res){
-      if(res.error){ setCaseMsg(card, res.error, true); return; }
+      stop();
+      if(res.error){ setCaseMsg(card, res.error, true); reenable(input, btn); return; }
       var i = CASES_CACHE.findIndex(function(c){return c.id===res.case.id;});
       if(i>=0) CASES_CACHE[i] = res.case;
       renderCases();
     }).catch(function(err){
+      stop();
       setCaseMsg(card, "couldn't get an answer: "+err, true);
+      reenable(input, btn);
     });
   }
 
@@ -865,6 +893,7 @@
       var statusBtn = e.target.closest(".status-btn");
       if(statusBtn){
         var card = statusBtn.closest(".case-card");
+        card.querySelectorAll(".status-btn").forEach(function(b){b.disabled = true;});
         submitFollowup(card.dataset.caseId, statusBtn.dataset.result, card);
       }
     });
@@ -874,17 +903,19 @@
       if(e.target.classList.contains("case-comment-form")){
         e.preventDefault();
         var input = e.target.querySelector(".comment-input");
+        var submitBtn = e.target.querySelector(".chip-submit");
         var text = input.value.trim();
         if(!text) return;
-        input.disabled = true;
-        submitComment(card.dataset.caseId, text, card);
+        input.disabled = true; submitBtn.disabled = true;
+        submitComment(card.dataset.caseId, text, card, input, submitBtn);
       } else if(e.target.classList.contains("case-ask-form")){
         e.preventDefault();
         var aInput = e.target.querySelector(".ask-input");
+        var askBtn = e.target.querySelector(".chip-submit");
         var question = aInput.value.trim();
         if(!question) return;
-        aInput.disabled = true;
-        submitAsk(card.dataset.caseId, question, card);
+        aInput.disabled = true; askBtn.disabled = true;
+        submitAsk(card.dataset.caseId, question, card, aInput, askBtn);
       }
     });
     renderSymptomLexicon();
